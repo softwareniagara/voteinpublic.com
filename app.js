@@ -7,17 +7,49 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , mongoose = require('mongoose')
+  , stylus = require('stylus')
+  , nib = require('nib');
 
 var app = express();
+
+// Establish a connection to the database.
+mongoose.connect('mongodb://localhost/pollapp');
+
+// Create a session in mongoose.
+var SessionMongoose = require('session-mongoose')
+  , mongooseSessionStore = new SessionMongoose({
+      url: 'mongodb://localhost/pollapp',
+      interval: 120000
+  });
+
+// Instructions for compiling stylesheets with stylus and nib.
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .set('compress', true)
+    .use(nib())
+    .import('nib');
+}
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.use(stylus.middleware({
+    src: __dirname + '/public',
+    dest: __dirname + '/public',
+    compile: compile
+  }));
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
+  app.use(express.cookieParser());
+  app.use(express.session({
+    store: mongooseSessionStore,
+    secret: 'a9dflkjaj4lr8ajdklfdlffa943f4hju'
+  }));
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
