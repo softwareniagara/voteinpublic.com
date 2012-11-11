@@ -114,6 +114,8 @@ exports.create = function(req, res) {
 
 /*
  * GET /question/:id/:answer
+ *
+ * Same deal with content negotiation as above. 
  */
 exports.answer = function(req, res) {
   question = Question.findOne({
