@@ -2,7 +2,8 @@ var Question = require('./../models/question.js')
   , Answer = require('./../models/answer.js')
   , exec = require('child_process').exec
   , qrcode = require('qrcode')
-  , PDFDocument = require('pdfkit');
+  , PDFDocument = require('pdfkit')
+  , Cookies = require('cookies');
 
 /*
  * GET /questions
@@ -221,17 +222,28 @@ exports.create = function(req, res) {
 /*
  * POST /question/:id/:answer
  *
- * We only access this route via ajax. So don't do any template rendering 
- * or rediring here.
+ * This is an api endpoint only. Don't do any template rendering or redirect
+ * here.
  */
 exports.answer = function(req, res) {
   var selectedAnswer = req.params.answer
     , lat = req.body.latitude
-    , lng = req.body.longitude;
+    , lng = req.body.longitude
+    , cookies = new Cookies(req, res)
+    , baseName = 'spaceweasel_';
     
   return Question.findOne({
     _id: req.params.id
   }, function(err, question) {
+    // If the user has a cookie for this question, they cannot vote.
+    if (cookies.get(baseName + question.id)) {
+      res.statusCode = '403';
+      res.setHeader('Content-Type', 'application/json');
+      return res.send({
+        'error': 'You have already cast your vote. You are not permitted to vote again.'
+      });
+    }
+  
     var answer = new Answer({
       value: selectedAnswer,
       question_id: question.id,
@@ -247,6 +259,9 @@ exports.answer = function(req, res) {
           'Content-Type': 'application/json'
         }, 422);
       } else {
+        // User voted. Cast a cookie so they cannot cast a vote.
+        cookies.set(baseName + question.id, question.id);
+      
         res.send({
           'success': 'Everything went great.'
         }, {
