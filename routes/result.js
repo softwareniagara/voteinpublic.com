@@ -13,24 +13,8 @@ exports.index = function(req, res){
 };
 
 /*
- * GET /results/:id
+ * GET /results/:id.:format?
  */
-
-exports.show = function(req, res){
-  Question.findOne({
-    _id: req.params.id
-  }, function(err, question) {
-    Answer.find({
-      question_id: req.params.id
-    }, function(err, answers) {
-      res.render("./../views/results/show", {
-        title: 'Results',
-        question: question,
-        answers: answers
-      });
-    });
-  });
-};
 
 exports.show = function(req, res) {
   var callback;
