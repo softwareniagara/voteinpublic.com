@@ -70,7 +70,7 @@ app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);
 app.get('/results', result.index);
-app.get('/results/:id', result.show);
+app.get('/results/:id.:format?', result.show);
 app.get('/map', map.show);
 
 app.get('/404', error.get404);
