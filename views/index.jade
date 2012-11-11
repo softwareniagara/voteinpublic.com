@@ -1,8 +1,16 @@
 extends layout
 
 block content
-  .row
-    .span12
-      h1= "What is your Question?"
 
-      
+  div(class="ask-question")
+    h1= "What is your Question?"
+
+    form(name="question", action="", method="post")
+      input(type="name", name="question", class="span6")
+      span(class="help-block")
+        = "Must be a yes or no question"
+      p
+        button(class="btn btn-success btn-large")
+          = "Ask your question"
+
+  hr
