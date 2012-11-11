@@ -77,6 +77,7 @@ app.get('/config/kml/list', config.getKMLFiles);
 
 app.get('/404', error.get404);
 app.get('/500', error.get500);
+app.get('/no_location', error.no_location);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
