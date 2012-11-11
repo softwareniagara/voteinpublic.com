@@ -63,7 +63,7 @@ app.configure('development', function(){
 // Routes
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/questions', question.index);
+app.get('/questions', question.list);
 app.post('/questions', question.create);
 
 http.createServer(app).listen(app.get('port'), function(){

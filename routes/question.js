@@ -1,16 +1,28 @@
-var Question = require('./../models/question')
+var Question = require('./../models/question.js')
   , exec = require('child_process').exec;
 
 /*
- * GET index
+ * GET /questions
  */
 
-exports.index = function(req, res){
-  res.render('questions/index', { title: 'Poll App!' });
+exports.list = function(req, res) {
+  return Question.find(function(err, questions) {
+    if (err) {
+      return res.send({
+        'error': err
+      },{
+        'Content-Type': 'application/json'
+      }, 500);
+    } else {
+      return res.send(questions, {
+        'Content-Type': 'application/json'
+      }, 200);
+    }
+  });
 };
 
 /*
- * POST create
+ * POST /question
  */
 exports.create = function(req, res) {
   var question = new Question({
