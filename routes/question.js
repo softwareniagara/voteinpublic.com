@@ -2,9 +2,8 @@ var Question = require('./../models/question.js')
   , exec = require('child_process').exec;
 
 /*
- * GET /questions
+ * GET /api/questions
  */
-
 exports.list = function(req, res) {
   return Question.find(function(err, questions) {
     if (err) {
@@ -22,11 +21,32 @@ exports.list = function(req, res) {
 };
 
 /*
+ * GET /questions
+ */
+exports.index = function(req, res) {
+  return Question.find(function(err, questions) {
+
+    res.render("./../views/questions/index", {
+      title: 'Questions',
+      questions: questions
+    });
+  });
+};
+
+/*
  * POST /question
  */
 exports.create = function(req, res) {
+
+  var questionValue = req.body.question;
+
+  // Add a question mark if there isn't one present as the last character
+  if (questionValue.slice(-1) !== '?') {
+    questionValue += '?';
+  }
+
   var question = new Question({
-    value: req.body.question
+    value: questionValue
   });
 
   question.value = question.value.trim();

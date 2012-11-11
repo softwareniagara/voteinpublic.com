@@ -5,3 +5,8 @@ block content
   div(class="row")
     div(class="span12")
       h1= "Questions asked"
+
+      ul
+        each question in questions
+          li
+            = question.value
