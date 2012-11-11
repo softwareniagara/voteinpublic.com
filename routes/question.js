@@ -15,15 +15,13 @@ exports.index = function(req, res) {
     case '.json':
       callback = function(err, questions) {
         if (err || !questions) {
-          return res.send({
-            'error': err
-          },{
-            'Content-Type': 'application/json'
-          }, 500);
+          res.statusCode = '500';
+          res.setHeader('Content-Type', 'application/json');
+          return res.send({'error': err});
         } else {
-          return res.send(questions, {
-            'Content-Type': 'application/json'
-          }, 200);
+          res.statusCode = '200';
+          res.setHeader('Content-Type', 'application/json');
+          return res.send(questions);
         }
       };
       break;
@@ -33,6 +31,7 @@ exports.index = function(req, res) {
           res.redirect('/404');
           return false;
         }
+        
         return res.render("./../views/questions/index", {
           title: 'Questions',
           questions: questions
@@ -54,15 +53,15 @@ exports.show = function(req, res) {
     case 'json':
       callback = function(err, question) {
         if (err || !question) {
+          res.statusCode = '404';
+          res.setHeader('Content-Type', 'application/json');
           return res.send({
             'error': 'The record you were looking for could not be found.'
-          }, {
-            'Content-Type': 'application/json'
-          }, 404);
+          });
         } else {
-          return res.send(question, {
-            'Content-Type': 'application/json'
-          }, 200);
+          res.statusCode = '200';
+          res.setHeader('Content-Type', 'application/json');
+          return res.send(question);
         }
       };
       break;
@@ -253,20 +252,19 @@ exports.answer = function(req, res) {
     
     return answer.save(function(err, answer) {
       if (err || !answer) {
-        return res.rend({
+        res.statusCode = '422';
+        res.setHeader('Content-Type', 'application/json');
+        return res.send({
           'error': 'Could not save your answer.'
-        }, {
-          'Content-Type': 'application/json'
-        }, 422);
+        });
       } else {
         // User voted. Cast a cookie so they cannot cast a vote.
         cookies.set(baseName + question.id, question.id);
-      
+        res.statusCode = '200';
+        res.setHeader('Content-Type', 'application/json');
         res.send({
           'success': 'Everything went great.'
-        }, {
-          'Content-Type': 'application/json'
-        }, 200);
+        });
       }
     });
   });
