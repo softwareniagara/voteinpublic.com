@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
   , timestamps = require('./../lib/plugins/timestamps.js')
   , location   = require('./../lib/plugins/location.js')
   , Question
-  , Answer = require('answer.js');
+  , Answer = require('./answer.js');
   
 Question = new mongoose.Schema({
   value: {
@@ -11,7 +11,7 @@ Question = new mongoose.Schema({
   },
   possibleAnswers: {
     type: Array,
-    default: ['yes', 'no']
+    default: ['no','yes']
   },
   answers: [Answer]
 });

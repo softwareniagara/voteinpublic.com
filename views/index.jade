@@ -5,8 +5,8 @@ block content
   div(class="ask-question")
     h1= "What is your Question?"
 
-    form(name="question", action="", method="post")
-      input(type="name", name="question", class="span6")
+    form(name="question", action="/questions", method="post")
+      input(type="name", name="question", class="span8")
       span(class="help-block")
         = "Must be a yes or no question"
       p
