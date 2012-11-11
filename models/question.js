@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
   , timestamps = require('./../lib/plugins/timestamps.js')
   , location   = require('./../lib/plugins/location.js')
   , Question
-  , Answer = require('answer.js');
+  , Answer = require('./answer.js').Schema;
   
 Question = new mongoose.Schema({
   value: {
