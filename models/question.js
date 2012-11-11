@@ -12,7 +12,8 @@ Question = new mongoose.Schema({
   possibleAnswers: {
     type: Array,
     default: ['yes', 'no']
-  }
+  },
+  answers: [Answer]
 });
 
 Question.plugin(timestamps);
