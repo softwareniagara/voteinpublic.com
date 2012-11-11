@@ -31,7 +31,7 @@ exports.index = function(req, res) {
           res.redirect('/404');
           return false;
         }
-        
+
         return res.render("./../views/questions/index", {
           title: 'Questions',
           questions: questions
@@ -114,6 +114,7 @@ exports.create = function(req, res) {
   var questionValue = req.body.question.trim();
 
   if (questionValue == '') {
+    req.session.error = 'You must ask a question!';
     res.redirect('/');
     return false;
   }
