@@ -64,10 +64,7 @@ app.configure('development', function(){
 // Routes
 app.get('/', routes.index);
 app.get('/users', user.list);
-<<<<<<< HEAD
-=======
 app.get('/questions/:id/:answer', question.answer);
->>>>>>> new_branch_name
 app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);
