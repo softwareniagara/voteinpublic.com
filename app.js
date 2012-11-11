@@ -6,7 +6,8 @@
 var express = require('express')
   , routes = require('./routes')
   , question = require('./routes/question')
-  , results = require('./routes/result')
+  , result = require('./routes/result')
+  , error = require('./routes/error')
   , map = require('./routes/map')
   , http = require('http')
   , path = require('path')
@@ -67,9 +68,12 @@ app.get('/questions/:id/:answer', question.answer);
 app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);
-app.get('/results', results.index);
-app.get('/results/:id', results.show);
+app.get('/results', result.index);
+app.get('/results/:id', result.show);
 app.get('/map', map.show);
+
+app.get('/404', error.get404);
+app.get('/500', error.get500);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
