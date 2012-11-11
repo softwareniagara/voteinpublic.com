@@ -7,6 +7,9 @@ var mongoose = require('mongoose')
 Answer = new mongoose.Schema({
   value: {
     type: String
+  },
+  question_id: {
+    type: String
   }
 });
 

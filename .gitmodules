@@ -1,3 +1,9 @@
-[submodule "public/libs/openlayers"]
-	path = public/libs/openlayers
-	url = https://github.com/openlayers/openlayers.git
+[submodule "public/libs/backbone"]
+	path = public/libs/backbone
+	url = https://github.com/documentcloud/backbone.git
+[submodule "public/libs/underscore"]
+	path = public/libs/underscore
+	url = https://github.com/documentcloud/underscore.git
+[submodule "public/libs/jquery"]
+	path = public/libs/jquery
+	url = https://github.com/jquery/jquery.git

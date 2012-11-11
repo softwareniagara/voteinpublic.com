@@ -3,3 +3,4 @@ a{color:#00b7ff}
 .container-narrow{margin:0 auto;max-width:700px}
 .ask-question{text-align:center;}
 .ask-question h1{font-size:72px;line-height:1}
+#map{height:500px}
