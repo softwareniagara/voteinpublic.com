@@ -3,6 +3,7 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Poll App!' });
+exports.index = function(req, res) {
+  error_msg = req.session.error;
+  res.render('index', { title: 'Poll App!', error: error_msg });
 };

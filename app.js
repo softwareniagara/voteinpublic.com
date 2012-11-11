@@ -68,7 +68,7 @@ app.get('/questions/:id/:answer', question.addGeolocationToAnswer);
 app.post('/questions/:id/:answer', question.answer);
 app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
-app.post('/questions.:format', question.create);
+app.post('/questions', question.create);
 app.get('/results', result.index);
 app.get('/results/:id', result.show);
 app.get('/map', map.show);
