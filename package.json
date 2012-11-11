@@ -13,7 +13,8 @@
     "session-mongoose": "0.0.7",
     "nib": "~0.8.2",
     "stylus": "~0.30.1",
-    "qrcode": "~0.2.4"
+    "qrcode": "~0.2.4",
+    "canvas": "~0.13.1"
   },
   "devDependencies": {
     "node-dev": "~0.2.3"
