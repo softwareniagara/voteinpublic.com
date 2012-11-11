@@ -1,7 +1,6 @@
 var Question = require('./../models/question.js')
+  , Answer = require('./../models/answer.js')
   , exec = require('child_process').exec;
-
-var Answer = require('./../models/answer.js');
 
 /*
  * GET /questions
