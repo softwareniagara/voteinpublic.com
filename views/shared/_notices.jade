@@ -1,4 +1,6 @@
-h3
-  = "Notices"
-
-= req.session
+- if (typeof notice != 'undefined')
+  .alert.alert-success
+    = notice
+- if (typeof error != 'undefined')
+  .alert.alert-error
+    = error
