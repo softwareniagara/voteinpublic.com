@@ -1,3 +1,6 @@
 [submodule "public/libs/openlayers"]
 	path = public/libs/openlayers
 	url = https://github.com/openlayers/openlayers.git
+[submodule "public/libs/backbone"]
+	path = public/libs/backbone
+	url = https://github.com/documentcloud/backbone.git
