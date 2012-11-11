@@ -73,20 +73,20 @@ exports.show = function(req, res) {
         }
 
         // Is this spot okay to prepare the PDF?
-        console.log(question);                                                       
-        var url = "http://website.com/questions/" + question._id;                    
-        var data = fdf.generate({                                                    
-          question: question.value,                                                  
-          yesurl: url + "/yes",                                                      
-          nourl: url + "/no"                                                         
-        });                                                                          
-        // Static filename would be easier when generating the pdf,                  
-        // but what happens when different questions are created                     
-        // right after each other...                                                 
-        var filename = "tmp/" + question._id + ".fdf";                              
-        fs.writeFile(filename, data, function(err) {                                 
-          if (err) throw err;                                                        
-          console.log('Saved to ' + filename);                                       
+        console.log(question);
+        var url = "http://website.com/questions/" + question._id;
+        var data = fdf.generate({
+          question: question.value,
+          yesurl: url + "/yes",
+          nourl: url + "/no"
+        });
+        // Static filename would be easier when generating the pdf,
+        // but what happens when different questions are created
+        // right after each other...
+        var filename = "tmp/" + question._id + ".fdf";
+        fs.writeFile(filename, data, function(err) {
+          if (err) throw err;
+          console.log('Saved to ' + filename);
         });                        
       
         return res.render("./../views/questions/show", {
