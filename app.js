@@ -8,6 +8,7 @@ var express = require('express')
   , question = require('./routes/question')
   , result = require('./routes/result')
   , error = require('./routes/error')
+  , config = require('./routes/config')
   , map = require('./routes/map')
   , http = require('http')
   , path = require('path')
@@ -72,6 +73,7 @@ app.post('/questions', question.create);
 app.get('/results', result.index);
 app.get('/results/:id.:format?', result.show);
 app.get('/map', map.show);
+app.get('/config/kml/list', config.getKMLFiles);
 
 app.get('/404', error.get404);
 app.get('/500', error.get500);
