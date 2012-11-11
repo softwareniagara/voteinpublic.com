@@ -1,58 +1,91 @@
 var Question = require('./../models/question.js')
+  , Answer = require('./../models/answer.js')
   , exec = require('child_process').exec;
-
-var Answer = require('./../models/answer.js');
-
-/*
- * GET /api/questions
- */
-exports.list = function(req, res) {
-  return Question.find(function(err, questions) {
-    if (err) {
-      return res.send({
-        'error': err
-      },{
-        'Content-Type': 'application/json'
-      }, 500);
-    } else {
-      return res.send(questions, {
-        'Content-Type': 'application/json'
-      }, 200);
-    }
-  });
-};
 
 /*
  * GET /questions
  */
 exports.index = function(req, res) {
-  return Question.find(function(err, questions) {
-    res.render("./../views/questions/index", {
-      title: 'Questions',
-      questions: questions
-    });
-  });
+  switch (req.params.format) {
+    case '.json':
+      return Question.find(function(err, questions) {
+        if (err) {
+          return res.send({
+            'error': err
+          },{
+            'Content-Type': 'application/json'
+          }, 500);
+        } else {
+          return res.send(questions, {
+            'Content-Type': 'application/json'
+          }, 200);
+        }
+      });
+      break;
+    default: 
+      return Question.find(function(err, questions) {
+        if (err) {
+          // Should redirect to a 500: application error page here.
+        }
+        return res.render("./../views/questions/index", {
+          title: 'Questions',
+          questions: questions
+        });
+      });
+  }
 };
 
 /*
  * GET /questions/:id
  */
+
 exports.show = function(req, res) {
-  question = Question.findOne({
-    _id: req.params.id
-  }, function(err, question) {
-    res.render("./../views/questions/show", {
-      title: question.value,
-      question: question
-    });
-  });
+  switch (req.params.format) {
+    case 'json':
+      return Question.findOne({
+        _id: req.params.id
+      }, function(err, question) {
+        if (err) {
+          return res.send({
+            'error': err
+          }, {
+            'Content-Type': 'application/json'
+          }, 404);
+        } else {
+          return res.send(question, {
+            'Content-Type': 'application/json'
+          }, 200);
+        }
+      });
+      break;
+    default:
+      return Question.findOne({
+        _id: req.params.id
+      }, function(err, question) {
+        if (err) {
+          // Should probably redirect to a 404 page here.
+        }
+      
+        return res.render("./../views/questions/show", {
+          title: question.value,
+          question: question
+        });
+      });
+  }
 };
 
 /*
  * POST /question
+ *
+ * We need to do some content negotation here too. But I'm very tired right now. 
+ * I'll implement this tomorrow. 
+ *
+ * 1) On failure when create via json, it should return 422 code
+ * 2) On failure when create via html, it should redirect to 500 code page (user probably doesn't care about proper code - they just care that shit blew up - tell them the app is broke).
+ * 3) On success when created via json, it should return 201 code
+ * 4) On success when create via html, it should do what it does now.
  */
 exports.create = function(req, res) {
-
   var questionValue = req.body.question.trim();
 
   if (questionValue == '') {
@@ -81,6 +114,8 @@ exports.create = function(req, res) {
 
 /*
  * GET /question/:id/:answer
+ *
+ * Same deal with content negotiation as above. 
  */
 exports.answer = function(req, res) {
   question = Question.findOne({
