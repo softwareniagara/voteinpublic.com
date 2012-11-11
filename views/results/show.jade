@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+
+  div(class="row")
+    div(class="span12")
+      h1= question.value
+
+      h2= "Results"
+      ul
+        each answer in answers
+          li
+            = answer.valuess
