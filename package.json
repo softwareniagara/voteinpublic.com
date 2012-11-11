@@ -13,7 +13,8 @@
     "session-mongoose": "0.0.7",
     "nib": "~0.8.2",
     "stylus": "~0.30.1",
-    "fdf": "0.0.0"
+    "fdf": "0.0.0",
+    "cookies": "~0.3.2"
   },
   "devDependencies": {
     "node-dev": "~0.2.3"
