@@ -69,7 +69,6 @@ app.get('/questions/:id/:answer', question.answer);
 app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);
-app.get('/api/questions', question.list);
 app.get('/results', results.index);
 app.get('/results/:id', results.show);
 app.get('/map', map.show);
