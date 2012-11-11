@@ -55,6 +55,11 @@ exports.create = function(req, res) {
 
   var questionValue = req.body.question.trim();
 
+  if (questionValue == '') {
+    res.redirect('/');
+    return false;
+  }
+
   // Add a question mark if there isn't one present as the last character
   if (questionValue.slice(-1) !== '?') {
     questionValue += '?';
