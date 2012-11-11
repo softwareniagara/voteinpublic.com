@@ -78,6 +78,11 @@ exports.create = function(req, res) {
 
   var questionValue = req.body.question.trim();
 
+  if (questionValue == '') {
+    res.redirect('/');
+    return false;
+  }
+
   // Add a question mark if there isn't one present as the last character
   if (questionValue.slice(-1) !== '?') {
     questionValue += '?';
@@ -89,16 +94,11 @@ exports.create = function(req, res) {
 
   return question.save(function(err, question) {
     if (err) {
-      return res.send({
-        "error": err
-      },{
-        "Content-Type": "application/json"
-      }, 422);
+      //todo: send to error page when saving failed
     }
 
-    return res.send(question, {
-      "Content-Type": "application/json"
-    }, 200);
+    // redirect to show route after create question
+    res.redirect('/questions/' + question.id);
   });
 };
 
@@ -131,10 +131,11 @@ exports.answer = function(req, res) {
 
     return answer.save(function(err, answer) {
       if (err) {
-        //todo: send to error page when saving answer failed
+        //todo: send to error page when saving failed
       }
 
-      res.redirect('/questions/' + question.id);
+      // redirect to results
+      res.redirect('/results/' + question.id);
     });
   });
 };
