@@ -6,9 +6,11 @@ var Question = require('./../models/question.js')
  * GET /questions
  */
 exports.index = function(req, res) {
+  var callback;
+
   switch (req.params.format) {
     case '.json':
-      return Question.find(function(err, questions) {
+      callback = function(err, questions) {
         if (err) {
           return res.send({
             'error': err
@@ -20,10 +22,10 @@ exports.index = function(req, res) {
             'Content-Type': 'application/json'
           }, 200);
         }
-      });
+      };
       break;
     default: 
-      return Question.find(function(err, questions) {
+      callback = function(err, questions) {
         if (err) {
           // Should redirect to a 500: application error page here.
         }
@@ -31,8 +33,10 @@ exports.index = function(req, res) {
           title: 'Questions',
           questions: questions
         });
-      });
+      };
   }
+  
+  return Question.find(callback);
 };
 
 /*
@@ -40,11 +44,11 @@ exports.index = function(req, res) {
  */
 
 exports.show = function(req, res) {
+  var callback;
+
   switch (req.params.format) {
     case 'json':
-      return Question.findOne({
-        _id: req.params.id
-      }, function(err, question) {
+      callback = function(err, question) {
         if (err) {
           return res.send({
             'error': err
@@ -56,12 +60,10 @@ exports.show = function(req, res) {
             'Content-Type': 'application/json'
           }, 200);
         }
-      });
+      };
       break;
     default:
-      return Question.findOne({
-        _id: req.params.id
-      }, function(err, question) {
+      callback = function(err, question) {
         if (err) {
           // Should probably redirect to a 404 page here.
         }
@@ -70,8 +72,10 @@ exports.show = function(req, res) {
           title: question.value,
           question: question
         });
-      });
+      };
   }
+  
+  return Question.findOne({_id: req.params.id}, callback);
 };
 
 /*
