@@ -139,10 +139,8 @@ exports.answer = function(req, res) {
     var answer = new Answer({
       value: selectedAnswer,
       question_id: question.id,
-      location: {
-        latitude: '43.155684',
-        longitude: '-79.246513'
-      }
+      latitude: '43.155684',
+      longitude: '-79.246513'
     });
 
     return answer.save(function(err, answer) {

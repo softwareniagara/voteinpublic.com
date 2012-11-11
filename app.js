@@ -7,6 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , question = require('./routes/question')
+  , results = require('./routes/result')
   , map = require('./routes/map')
   , http = require('http')
   , path = require('path')
@@ -68,6 +69,8 @@ app.get('/questions/:id/:answer', question.answer);
 app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);
+app.get('/results', results.index);
+app.get('/results/:id', results.show);
 app.get('/map', map.show);
 
 http.createServer(app).listen(app.get('port'), function(){

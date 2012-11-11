@@ -7,3 +7,6 @@
 [submodule "public/libs/jquery"]
 	path = public/libs/jquery
 	url = https://github.com/jquery/jquery.git
+[submodule "public/libs/openlayers"]
+	path = public/libs/openlayers
+	url = https://github.com/openlayers/ol3.git
