@@ -3,6 +3,6 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Poll App!' });
+exports.show = function(req, res){
+  res.render('map/show', { title: 'Poll App!' });
 };
