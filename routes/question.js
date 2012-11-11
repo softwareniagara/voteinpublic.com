@@ -4,48 +4,71 @@ var Question = require('./../models/question.js')
 var Answer = require('./../models/answer.js');
 
 /*
- * GET /api/questions
- */
-exports.list = function(req, res) {
-  return Question.find(function(err, questions) {
-    if (err) {
-      return res.send({
-        'error': err
-      },{
-        'Content-Type': 'application/json'
-      }, 500);
-    } else {
-      return res.send(questions, {
-        'Content-Type': 'application/json'
-      }, 200);
-    }
-  });
-};
-
-/*
  * GET /questions
  */
 exports.index = function(req, res) {
-  return Question.find(function(err, questions) {
-    res.render("./../views/questions/index", {
-      title: 'Questions',
-      questions: questions
-    });
-  });
+  switch (req.params.format) {
+    case '.json':
+      return Question.find(function(err, questions) {
+        if (err) {
+          return res.send({
+            'error': err
+          },{
+            'Content-Type': 'application/json'
+          }, 500);
+        } else {
+          return res.send(questions, {
+            'Content-Type': 'application/json'
+          }, 200);
+        }
+      });
+      break;
+    default: 
+      return Question.find(function(err, questions) {
+        if (err) {
+          // What are we going to do with the error?
+        }
+        return res.render("./../views/questions/index", {
+          title: 'Questions',
+          questions: questions
+        });
+      });
+  }
 };
 
 /*
  * GET /questions/:id
  */
+
 exports.show = function(req, res) {
-  question = Question.findOne({
-    _id: req.params.id
-  }, function(err, question) {
-    res.render("./../views/questions/show", {
-      title: question.value,
-      question: question
-    });
-  });
+  switch (req.params.format) {
+    case 'json':
+      return Question.findOne({
+        _id: req.params.id
+      }, function(err, question) {
+        if (err) {
+          return res.send({
+            'error': err
+          }, {
+            'Content-Type': 'application/json'
+          }, 404);
+        } else {
+          return res.send(question, {
+            'Content-Type': 'application/json'
+          }, 200);
+        }
+      });
+      break;
+    default:
+      return Question.findOne({
+        _id: req.params.id
+      }, function(err, question) {
+        return res.render("./../views/questions/show", {
+          title: question.value,
+          question: question
+        });
+      });
+  }
 };
 
 /*
@@ -78,6 +101,7 @@ exports.create = function(req, res) {
     }, 200);
   });
 };
+<<<<<<< HEAD
 
 /*
  * GET /question/:id/:answer
@@ -115,3 +139,5 @@ exports.answer = function(req, res) {
     });
   });
 };
+=======
+>>>>>>> Started using content negotiation in routes. Disregard /api
