@@ -1,8 +1,7 @@
 var Question = require('./../models/question.js')
   , Answer = require('./../models/answer.js')
   , exec = require('child_process').exec
-  , fdf = require('fdf')
-  , fs = require('fs');
+  , qrcode = require('qrcode');
 
 /*
  * GET /questions
@@ -72,21 +71,29 @@ exports.show = function(req, res) {
           return false;
         }
 
-        // Is this spot okay to prepare the PDF?
         console.log(question);
-        var url = "http://website.com/questions/" + question._id;
-        var data = fdf.generate({
-          question: question.value,
-          yesurl: url + "/yes",
-          nourl: url + "/no"
+        var path = "tmp/" + question._id
+          , yespath = path + ".yes.png"
+          , nopath = path + ".no.png"
+          , url = "http://website.com/questions/" + question._id
+          , yesurl = url + "/yes"
+          , nourl = url + "/no";
+
+        // Can use the base64 image data for displaying the QR codes on a page.
+        /*
+        qrcode.toDataURL("qrcode-text", function(err, url){
+          console.log(url);
         });
-        // Static filename would be easier when generating the pdf,
-        // but what happens when different questions are created
-        // right after each other..
-        var filename = "tmp/" + question._id + ".fdf";
-        fs.writeFile(filename, data, function(err) {
+        */
+
+        // Saves the QR code images as PNG files (if directory in path exists).
+        qrcode.save(yespath, yesurl, function(err, bytes){
           if (err) throw err;
-          console.log('Saved to ' + filename);
+          console.log("Yes QR code saved.");
+        });
+        qrcode.save(nopath, nourl, function(err, bytes){
+          if (err) throw err;
+          console.log("No QR code saved.");
         });
       
         return res.render("./../views/questions/show", {
