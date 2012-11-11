@@ -5,7 +5,6 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , question = require('./routes/question')
   , results = require('./routes/result')
   , map = require('./routes/map')
@@ -64,7 +63,8 @@ app.configure('development', function(){
 
 // Routes
 app.get('/', routes.index);
-app.get('/questions/:id/:answer', question.answer);
+app.get('/questions/:id/:answer', question.addGeolocationToAnswer);
+app.post('/questions/:id/:answer', question.answer);
 app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);

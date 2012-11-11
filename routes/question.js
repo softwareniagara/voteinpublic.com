@@ -118,38 +118,64 @@ exports.create = function(req, res) {
 
 /*
  * GET /question/:id/:answer
+ * 
+ * This is an intermediary step where we will be using an HTML5 api to grab the
+ * user's location from their device's operating system. We will then send the
+ * lat/lng to POST /question/:id/:answer. 
  *
- * Same deal with content negotiation as above. 
+ * There should be no API end-point here. An API user should be responsible for
+ * getting the lat/lng themselves and posting it to /question/:id/:answer.
+ */
+ exports.addGeolocationToAnswer = function(req, res) {
+  // Get the answer. Who cares if it is valid. That will get verified in the 
+  // next step.
+  var answer      = req.params.answer
+    , question_id = req.params.id;
+  
+  return res.render("./../views/questions/location", {
+    title: 'Verifying location',
+    answer: answer,
+    question_id: question_id
+  });
+ };
+
+/*
+ * POST /question/:id/:answer
+ *
+ * We only access this route via ajax. So don't do any template rendering 
+ * or rediring here.
  */
 exports.answer = function(req, res) {
-  question = Question.findOne({
+  var selectedAnswer = req.params.answer
+    , lat = req.body.latitude
+    , lng = req.body.longitude;
+    
+  console.log(req.params);
+    
+  return Question.findOne({
     _id: req.params.id
   }, function(err, question) {
-
-    var selectedAnswer = req.params.answer;
-
-    // check to ensure that the answer given is a possible answer
-    if (question.possibleAnswers.indexOf(selectedAnswer) === -1) {
-      //answer is not one of the possible answers
-      res.redirect('/questions');
-      return false;
-    }
-
-    // Create an answer
     var answer = new Answer({
       value: selectedAnswer,
       question_id: question.id,
-      latitude: '43.155684',
-      longitude: '-79.246513'
+      latitude: lat,
+      longitude: lng
     });
-
-    return answer.save(function(err, answer) {
+    
+    answer.save(function(err, answer) {
       if (err) {
-        //todo: send to error page when saving failed
+        res.rend({
+          'error': 'Could not save your answer.'
+        }, {
+          'Content-Type': 'application/json'
+        }, 422);
+      } else {
+        res.send({
+          'success': 'Everything went great.'
+        }, {
+          'Content-Type': 'application/json'
+        }, 200);
       }
-
-      // redirect to results
-      res.redirect('/results/' + question.id);
     });
   });
 };

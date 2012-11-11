@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+  
+  div(class="row")
+    div(class="span12")
+      h1= "Determining Location"
+      p
+        = "Your vote for '" + answer + "' will be processed as soon we can verify your location."
+        = "When prompted, please allow us to use your current location or your vote will not be valid."
+        
+  script
+    (function($) {
+      var onSuccessfulPosition = function(location) {
+        var lat = location.coords.latitude
+          , lng = location.coords.longitude
+          , request;
+          
+        request = $.ajax({
+          url: "/questions/#{question_id}/#{answer}",
+          type: "POST",
+          data: {
+            latitude: lat,
+            longitude: lng
+          },
+          dataType: "json"
+        });
+        
+        request.done(function(msg) {
+          window.location = "/results/#{question_id}";
+        });
+        
+        request.fail(function(jqXHR, msg) {
+          alert('Could not process your vote.');
+        });
+      };
+      
+      var onFailedPosition = function() {
+        alert('wtf');
+      }
+    
+      $(document).ready(function() {
+        if (navigator && navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(onSuccessfulPosition, onFailedPosition);
+        } else {
+          onFailedPosition();  
+        }
+      });
+    })($);
