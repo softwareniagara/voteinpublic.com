@@ -1,6 +1,8 @@
 var Question = require('./../models/question.js')
   , Answer = require('./../models/answer.js')
-  , exec = require('child_process').exec;
+  , exec = require('child_process').exec
+  , fdf = require('fdf')
+  , fs = require('fs');
 
 /*
  * GET /questions
@@ -11,7 +13,7 @@ exports.index = function(req, res) {
   switch (req.params.format) {
     case '.json':
       callback = function(err, questions) {
-        if (err) {
+        if (err || !questions) {
           return res.send({
             'error': err
           },{
@@ -26,8 +28,9 @@ exports.index = function(req, res) {
       break;
     default: 
       callback = function(err, questions) {
-        if (err) {
-          // Should redirect to a 500: application error page here.
+        if (err || !questions) {
+          res.redirect('/404');
+          return false;
         }
         return res.render("./../views/questions/index", {
           title: 'Questions',
@@ -64,9 +67,27 @@ exports.show = function(req, res) {
       break;
     default:
       callback = function(err, question) {
-        if (err) {
-          // Should probably redirect to a 404 page here.
+        if (err || !question) {
+          res.redirect('/404');
+          return false;
         }
+
+        // Is this spot okay to prepare the PDF?
+        console.log(question);                                                       
+        var url = "http://website.com/questions/" + question._id;                    
+        var data = fdf.generate({                                                    
+          question: question.value,                                                  
+          yesurl: url + "/yes",                                                      
+          nourl: url + "/no"                                                         
+        });                                                                          
+        // Static filename would be easier when generating the pdf,                  
+        // but what happens when different questions are created                     
+        // right after each other...                                                 
+        var filename = "tmp/" + question._id + ".fdf";                              
+        fs.writeFile(filename, data, function(err) {                                 
+          if (err) throw err;                                                        
+          console.log('Saved to ' + filename);                                       
+        });                        
       
         return res.render("./../views/questions/show", {
           title: question.value,
@@ -107,8 +128,9 @@ exports.create = function(req, res) {
   });
 
   return question.save(function(err, question) {
-    if (err) {
-      //todo: send to error page when saving failed
+    if (err || !question) {
+      res.redirect('/404');
+      return false;
     }
 
     // redirect to show route after create question
@@ -150,8 +172,6 @@ exports.answer = function(req, res) {
     , lat = req.body.latitude
     , lng = req.body.longitude;
     
-  console.log(req.params);
-    
   return Question.findOne({
     _id: req.params.id
   }, function(err, question) {
@@ -162,9 +182,9 @@ exports.answer = function(req, res) {
       longitude: lng
     });
     
-    answer.save(function(err, answer) {
-      if (err) {
-        res.rend({
+    return answer.save(function(err, answer) {
+      if (err || !answer) {
+        return res.rend({
           'error': 'Could not save your answer.'
         }, {
           'Content-Type': 'application/json'
