@@ -64,6 +64,7 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/questions', question.index);
+app.get('/questions/:id', question.show);
 app.post('/questions', question.create);
 app.get('/api/questions', question.list);
 
