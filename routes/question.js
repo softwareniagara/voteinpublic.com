@@ -49,9 +49,9 @@ exports.show = function(req, res) {
   switch (req.params.format) {
     case 'json':
       callback = function(err, question) {
-        if (err) {
+        if (err || !question) {
           return res.send({
-            'error': err
+            'error': 'The record you were looking for could not be found.'
           }, {
             'Content-Type': 'application/json'
           }, 404);
