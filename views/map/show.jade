@@ -1,8 +1,12 @@
 extends ../layout
 
+block head
+
+  script(src='/js/map.js')
+
 block content
   .row
     .map-title
       p This is the map
     .map
-      div
+      div(id="map")
