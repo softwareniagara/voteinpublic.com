@@ -247,8 +247,7 @@ exports.answer = function(req, res) {
     var answer = new Answer({
       value: selectedAnswer,
       question_id: question.id,
-      latitude: lat,
-      longitude: lng
+      coordinates: [lat, lng]
     });
     
     return answer.save(function(err, answer) {
