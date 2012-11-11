@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+if (process.env.NODE_ENV === 'production') return console.log('WTF you doing?');
+
+var mongoose = require('mongoose')
+  , Question  = require('./../models/question.js')
+  , Answer    = require('./../models/answer.js');
+  
+mongoose.connect('mongodb://localhost/pollapp');
+
+// Remove all the questions and answers.
+Answer.remove({}, function(err) {
+  if (err) {
+    console.log('Cannot delete answers for some reason.');
+    process.exit();
+  }
+  
+  Question.remove({}, function(err) {
+    if (err) {
+      console.log('Cannot delete questions for some reason.');
+      process.exit();
+    }
+    
+    var question = new Question({
+      value: 'Is it a trap?',
+      answers: [
+        {
+          value: 'yes'
+        },
+        {
+          value: 'no'
+        },
+        {
+          value: 'yes'
+        }
+      ]
+    });
+    
+    question.save(function(err, question) {
+      if (err) {
+        console.log(err);
+        process.exit();
+      }
+      
+      console.log('Saved a great question. Got some good answers.');
+      process.exit();
+    });
+  });
+});
