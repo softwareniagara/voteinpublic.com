@@ -63,3 +63,10 @@ exports.show = function(req, res) {
     });
   });
 };
+
+/*
+ * GET /results/clustered.:format?
+ */
+exports.clustered = function(req, res) {
+
+}

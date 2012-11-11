@@ -10,4 +10,4 @@ block content
       ul
         each answer in answers
           li
-            = answer.value + "(" + answer.latitude + ", " + answer.longitude + ")"
+            = answer.value + "(" + answer.coordinates[0] + ", " + answer.coordinates[1] + ")"
