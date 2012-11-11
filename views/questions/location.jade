@@ -23,15 +23,17 @@ block content
             latitude: lat,
             longitude: lng
           },
-          dataType: "json"
-        });
-        
-        request.done(function(msg) {
-          window.location = "/results/#{question_id}";
-        });
-        
-        request.fail(function(jqXHR, msg) {
-          alert('Could not process your vote.');
+          dataType: "json",
+          success: function(data, textStatus, jqXHR) {
+            if (jqXHR.status == '200') {
+              window.location = "/results/#{question_id}";
+            } else {
+              alert(data.error);
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert('Failed to use this');
+          }
         });
       };
       
