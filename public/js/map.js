@@ -1,6 +1,6 @@
 var map;
 
-function init() {/*
+var init = function () {/*
 
     map = new OpenLayers.Map({
         div: "map",
@@ -69,4 +69,6 @@ map.addEventListener('click', function(evt) {
 
 }
 
-init();
+$(document).ready(function() {
+	init();
+});

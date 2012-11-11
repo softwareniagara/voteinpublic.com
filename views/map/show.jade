@@ -1,9 +1,12 @@
 extends ../layout
 
 block head
+  script(src='/libs/underscore/underscore-min.js')
+  script(src='/libs/backbone/backbone-min.js')
   script(src='/libs/openlayers/build/ol.js')
   script(src='/js/map.js')
   link(rel='stylesheet', href='/libs/openlayers/build/ol.css', type='text/css')
+  
 
 block content
   .row
