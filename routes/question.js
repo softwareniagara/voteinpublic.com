@@ -25,10 +25,23 @@ exports.list = function(req, res) {
  */
 exports.index = function(req, res) {
   return Question.find(function(err, questions) {
-
     res.render("./../views/questions/index", {
       title: 'Questions',
       questions: questions
+    });
+  });
+};
+
+/*
+ * GET /questions/:id
+ */
+exports.show = function(req, res) {
+  question = Question.findOne({
+    _id: req.params.id
+  }, function(err, question) {
+    res.render("./../views/questions/show", {
+      title: question.value,
+      question: question
     });
   });
 };

@@ -9,4 +9,5 @@ block content
       ul
         each question in questions
           li
-            = question.value
+            a(href="/questions/#{question.id}")
+              = question.value
