@@ -5,7 +5,6 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , question = require('./routes/question')
   , results = require('./routes/result')
   , map = require('./routes/map')
