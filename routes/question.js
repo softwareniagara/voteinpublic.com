@@ -1,6 +1,8 @@
 var Question = require('./../models/question.js')
   , exec = require('child_process').exec;
 
+var Answer = require('./../models/answer.js');
+
 /*
  * GET /api/questions
  */
@@ -74,5 +76,42 @@ exports.create = function(req, res) {
     return res.send(question, {
       "Content-Type": "application/json"
     }, 200);
+  });
+};
+
+/*
+ * GET /question/:id/:answer
+ */
+exports.answer = function(req, res) {
+  question = Question.findOne({
+    _id: req.params.id
+  }, function(err, question) {
+
+    var selectedAnswer = req.params.answer;
+
+    // check to ensure that the answer given is a possible answer
+    if (question.possibleAnswers.indexOf(selectedAnswer) === -1) {
+      //answer is not one of the possible answers
+      res.redirect('/questions');
+      return false;
+    }
+
+    // Create an answer
+    var answer = new Answer({
+      value: selectedAnswer,
+      question_id: question.id,
+      location: {
+        latitude: '43.155684',
+        longitude: '-79.246513'
+      }
+    });
+
+    return answer.save(function(err, answer) {
+      if (err) {
+        //todo: send to error page when saving answer failed
+      }
+
+      res.redirect('/questions/' + question.id);
+    });
   });
 };
