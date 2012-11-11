@@ -1,7 +1,9 @@
 var mongoose = require('mongoose')
   , Schema   = mongoose.Schema
   , timestamps = require('./../lib/plugins/timestamps.js')
-  , Question;
+  , location   = require('./../lib/plugins/location.js')
+  , Question
+  , Answer = require('answer.js');
   
 Question = new mongoose.Schema({
   value: {
@@ -14,5 +16,6 @@ Question = new mongoose.Schema({
 });
 
 Question.plugin(timestamps);
+Question.plugin(location);
 
 module.exports = mongoose.model('Question', Question);
