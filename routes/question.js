@@ -13,7 +13,7 @@ exports.index = function(req, res) {
   switch (req.params.format) {
     case '.json':
       callback = function(err, questions) {
-        if (err) {
+        if (err || !questions) {
           return res.send({
             'error': err
           },{
@@ -28,8 +28,9 @@ exports.index = function(req, res) {
       break;
     default: 
       callback = function(err, questions) {
-        if (err) {
-          // Should redirect to a 500: application error page here.
+        if (err || !questions) {
+          res.redirect('/404');
+          return false;
         }
         return res.render("./../views/questions/index", {
           title: 'Questions',
@@ -66,8 +67,9 @@ exports.show = function(req, res) {
       break;
     default:
       callback = function(err, question) {
-        if (err) {
-          // Should probably redirect to a 404 page here.
+        if (err || !question) {
+          res.redirect('/404');
+          return false;
         }
 
         // Is this spot okay to prepare the PDF?
@@ -126,8 +128,9 @@ exports.create = function(req, res) {
   });
 
   return question.save(function(err, question) {
-    if (err) {
-      //todo: send to error page when saving failed
+    if (err || !question) {
+      res.redirect('/404');
+      return false;
     }
 
     // redirect to show route after create question
@@ -163,8 +166,9 @@ exports.answer = function(req, res) {
     });
 
     return answer.save(function(err, answer) {
-      if (err) {
-        //todo: send to error page when saving failed
+      if (err || !answer) {
+        res.redirect('/404');
+        return false;
       }
 
       // redirect to results
