@@ -101,7 +101,6 @@ exports.create = function(req, res) {
     }, 200);
   });
 };
-<<<<<<< HEAD
 
 /*
  * GET /question/:id/:answer
@@ -139,5 +138,3 @@ exports.answer = function(req, res) {
     });
   });
 };
-=======
->>>>>>> Started using content negotiation in routes. Disregard /api
