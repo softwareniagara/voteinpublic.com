@@ -51,7 +51,7 @@ exports.show = function(req, res) {
  */
 exports.create = function(req, res) {
 
-  var questionValue = req.body.question;
+  var questionValue = req.body.question.trim();
 
   // Add a question mark if there isn't one present as the last character
   if (questionValue.slice(-1) !== '?') {
@@ -61,8 +61,6 @@ exports.create = function(req, res) {
   var question = new Question({
     value: questionValue
   });
-
-  question.value = question.value.trim();
 
   return question.save(function(err, question) {
     if (err) {
