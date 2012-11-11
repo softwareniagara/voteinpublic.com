@@ -64,10 +64,9 @@ app.configure('development', function(){
 // Routes
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/questions', question.index);
-app.get('/questions/:id', question.show);
+app.get('/questions:format?', question.index);
+app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);
-app.get('/api/questions', question.list);
 app.get('/map', map.show);
 
 http.createServer(app).listen(app.get('port'), function(){
