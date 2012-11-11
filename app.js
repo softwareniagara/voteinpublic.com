@@ -71,7 +71,7 @@ app.get('/questions:format?', question.index);
 app.get('/questions/:id.:format?', question.show);
 app.post('/questions', question.create);
 app.get('/results', result.index);
-app.get('/results/clustered.:format?', result.clustered);
+app.get('/results/:id/clustered.:format?', result.clustered);
 app.get('/results/:id.:format?', result.show);
 app.get('/map', map.show);
 app.get('/config/kml/list', config.getKMLFiles);
