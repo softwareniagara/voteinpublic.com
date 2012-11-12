@@ -72,7 +72,6 @@ exports.show = function(req, res) {
           return false;
         }
 
-        console.log(question);
         var path = "tmp/" + question._id
           , yes_img = path + ".yes.png"
           , no_img = path + ".no.png"
