@@ -5,7 +5,17 @@ if (process.env.NODE_ENV === 'production') return console.log('WTF you doing?');
 var mongoose = require('mongoose')
   , Question  = require('./../models/question.js')
   , Answer    = require('./../models/answer.js');
-  
+
+// First three responses are next door. Fourth response is another street.
+// Fifth response is another city.
+var responses = [
+  {value: 'yes', coordinates: [43.168515, -79.254748]},
+  {value: 'yes', coordinates: [43.168435, -79.254692]},
+  {value: 'no', coordinates: [43.168594, -79.254804]},
+  {value: 'no', coordinates: [43.155235, -79.245704]},
+  {value: 'yes', coordinates: [43.052581, -79.058984]}
+];
+
 mongoose.connect('mongodb://localhost/pollapp');
 
 // Remove all the questions and answers.
@@ -41,9 +51,28 @@ Answer.remove({}, function(err) {
         console.log(err);
         process.exit();
       }
-      
-      console.log('Saved a great question. Got some good answers.');
-      process.exit();
+
+      var answerQuestion = function(err, question, iteration, maxIterations) {
+        if (err) {
+          console.log(err);
+          process.exit();
+        }
+
+        if (iteration < maxIterations) {
+          var answer = new Answer({
+            question_id: question.id,
+            value: responses[iteration].value,
+            coordinates: responses[iteration].coordinates
+          });
+          return answer.save(function(err, answer) {
+            return answerQuestion(err, question, iteration + 1, maxIterations);
+          });
+        } else {
+          console.log('Saved a great question. Got some good answers.');
+          process.exit();
+        }
+      };
+      answerQuestion(null, question, 0, 5);
     });
   });
 });
