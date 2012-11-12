@@ -5,9 +5,9 @@ block content
   div(class="row")
     div(class="span12")
       h1= question.value
+      ul(class="answers")
+        li(style="width:" + yesWidth + "%;")
+          h2= 'Yes Answers (' + yesWidth + ')'
+        li(style="width:" + noWidth + "%;")
+          h2= 'No Results (' + noWidth + ')'
 
-      h2= "Results"
-      ul
-        each answer in answers
-          li
-            = answer.value + "(" + answer.coordinates[0] + ", " + answer.coordinates[1] + ")"
