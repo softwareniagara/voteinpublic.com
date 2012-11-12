@@ -78,10 +78,14 @@ var getClusteredAnswers = function(question_id, callback) {
 }
 
 var getClusteredAnswers = function(answer, question_id, answers, results, callback) {
+  if (!answer) {
+    return callback(null, results);
+  }
+
   return Answer.find({
     question_id: question_id,
     _id: {$nin: answers},
-    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.01}
+    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.001}
   }, function(err, rawResults) {
     if (err) {
       return callback(err, null);
@@ -122,6 +126,7 @@ var getClusteredAnswers = function(answer, question_id, answers, results, callba
           if (err) {
             return callback(err, null);
           } else {
+            answers.push(answer.id);
             return getClusteredAnswers(answer, question_id, answers, results, callback);
           }
         });
