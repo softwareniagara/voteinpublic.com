@@ -58,7 +58,7 @@ block content
         if (navigator && navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(onSuccessfulPosition, onFailedPosition, {timeout: 10000 });
         } else {
-          onFailedPosition();  
+          window.location = "/failed_location";
         }
       });
     })($);
