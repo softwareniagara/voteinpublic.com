@@ -1,5 +1,6 @@
 body{background-color:#fff;padding-top:20px;font:14px "Lucida Grande",Helvetica,Arial,sans-serif}
 a{color:#00b7ff}
+form#question_ask input.question{font-size:2em;padding:.286em;margin:.286em;}
 .container-narrow{margin:0 auto;max-width:700px}
 .ask-question{text-align:center}
 h1{font-size:72px;line-height:1}
