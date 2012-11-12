@@ -40,10 +40,16 @@ exports.show = function(req, res) {
         if (err) {
           return res.redirect('/500');
         } else {
+          countNo = answers.filter(filterNo).length;
+          countYes = answers.filter(filterYes).length;
+          yesWidth = roundNumber(countYes / answers.length * 100, 2);
+          noWidth = roundNumber(countNo / answers.length * 100, 2); 
           return res.render("./../views/results/show", {
             title: 'Results',
             question: question,
-            answers: answers
+            answers: answers,
+            yesWidth: yesWidth,
+            noWidth: noWidth,
           });
         }
       }
@@ -163,4 +169,17 @@ exports.clustered = function(req, res) {
       });
     }
   });
+}
+
+var filterYes = function(answer) {
+  return answer.value == 'yes';
+}
+
+var filterNo = function(answer) {
+  return answer.value == 'no';
+}
+
+function roundNumber(num, dec) {
+	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+	return result;
 }
