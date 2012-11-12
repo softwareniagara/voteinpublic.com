@@ -5,9 +5,9 @@ block content
   div(class="row")
     div(class="span12")
       h1= question.value
-      ul(class="answers")
-        li(style="width:" + yesWidth + "%;")
+      ul(class="answer_graph")
+        li(style="width:" + yesWidth + "%;", class="answers yes")
           h2= 'Yes Answers (' + yesWidth + ')'
-        li(style="width:" + noWidth + "%;")
+        li(style="width:" + noWidth + "%;", class="answers no")
           h2= 'No Results (' + noWidth + ')'
 
