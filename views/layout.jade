@@ -5,23 +5,32 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='device-width, initial-scale=1.0')
     link(rel='stylesheet', href='/libs/bootstrap/css/bootstrap.min.css')
+    style
+      body {
+        padding-top: 80px;
+      }
     link(rel='stylesheet', href='/libs/bootstrap/css/bootstrap-responsive.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery-1.8.2.min.js')
-    script(type='text/javascript', href='/libs/bootstrap/js/bootstrap.min.js')
+    script(src='/libs/bootstrap/js/bootstrap.min.js')
     block head
 
   body
-
-    div(class="container")
-      div(class="masthead")
-        ul(class="nav nav-pills pull-right")
-          li(class="active")
-            a(href="/")
-              = "Home"
-        h3(class="muted")
-          = "Poll App"
-      hr
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.brand() 
+            = "Where's Your Poll at?"
+          .nav-collapse.collapse
+            ul.nav.pull-right
+              li.active
+                a(href='/') Home
+              li
+                a(href='/questions') Trending Questions 
 
     div(class="container")
 
