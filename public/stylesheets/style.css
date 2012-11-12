@@ -3,7 +3,7 @@ a{color:#00b7ff}
 form#question_ask input.question{font-size:2em;padding:.286em;margin:.286em;}
 .container-narrow{margin:0 auto;max-width:700px}
 .ask-question{text-align:center}
-h1{font-size:72px;line-height:1}
+h1{font-size:3em;line-height:1}
 #map{height:500px}
 ul.answer_graph{margin:0;padding:0;position:relative}
 ul.answer_graph li{margin:0;padding:0;list-style-type:none;position:absolute}
