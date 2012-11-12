@@ -1,8 +1,8 @@
 var Question = require('./../models/question.js')
   , Answer = require('./../models/answer.js')
   , exec = require('child_process').exec
-  , fdf = require('fdf')
-  , fs = require('fs')
+  , qrcode = require('qrcode')
+  , PDFDocument = require('pdfkit')
   , Cookies = require('cookies');
 
 /*
@@ -72,23 +72,79 @@ exports.show = function(req, res) {
           return false;
         }
 
-        // Is this spot okay to prepare the PDF?
-        console.log(question);                                                       
-        var url = "http://website.com/questions/" + question._id;                    
-        var data = fdf.generate({                                                    
-          question: question.value,                                                  
-          yesurl: url + "/yes",                                                      
-          nourl: url + "/no"                                                         
-        });                                                                          
-        // Static filename would be easier when generating the pdf,                  
-        // but what happens when different questions are created                     
-        // right after each other...                                                 
-        var filename = "tmp/" + question._id + ".fdf";                              
-        fs.writeFile(filename, data, function(err) {                                 
-          if (err) throw err;                                                        
-          console.log('Saved to ' + filename);                                       
-        });                        
-      
+        var path = "tmp/" + question._id
+          , yes_img = path + ".yes.png"
+          , no_img = path + ".no.png"
+          , poster = path + ".pdf"
+          , url = "http://website.com/questions/" + question._id
+          , yes_url = url + "/yes"
+          , no_url = url + "/no";
+
+        // Want to display the QR code on a webpage?
+        // Embed it in an image using the base64 image data.
+        // qrcode.toDataURL("qrcode-text", function(err, url){
+        //   console.log(url);
+        // });
+
+        var buildPoster = function(layout) { 
+          // Can't use different fonts, there's a bug that corrupts the pdf.
+          // We can eventually replace 'Yes' and 'No' with a green check mark
+          // and red X respectively. See http://pdfkit.org/docs/vector.html
+          doc = new PDFDocument({
+            layout: layout
+          });
+          doc.info['Author'] = "Software Niagara";
+          if (layout == 'landscape')
+          {
+            if (question.value.length <= 40) doc.fontSize(70);
+            else if (question.value.length <= 70) doc.fontSize(50);
+            else doc.fontSize(45);
+            doc.text(question.value); // Left-aligned by default.
+            doc.fontSize(45);
+            doc.image(yes_img, 100, 330, {
+              fit: [200, 200]
+            }).text('Yes', 155, 530);
+            // Add 'no' QR code to the bottom right.
+            doc.image(no_img, 475, 330, {
+              fit: [200, 200]
+            }).text('No', 550, 530);
+            // Add some advertising text in bottom right corner.
+            doc.fontSize(10);
+            doc.text('Created with <website_url>', 650, 590);
+          }
+          else // portrait
+          {
+            if (question.value.length <= 40) doc.fontSize(70);
+            else if (question.value.length <= 70) doc.fontSize(60);
+            else doc.fontSize(44);
+            doc.text(question.value); // Left-aligned by default.
+            doc.fontSize(45);
+            doc.image(yes_img, 60, 450, {
+              fit: [200, 200]
+            }).text('Yes', 120, 650);
+            // Add 'no' QR code to the bottom right.
+            doc.image(no_img, 350, 450, {
+              fit: [200, 200]
+            }).text('No', 425, 650);
+            // Add some advertising text in bottom right corner.
+            doc.fontSize(10);
+            doc.text('Created with <website_url>', 450, 760);
+          }
+          doc.write(poster); // And finally save it.
+        };
+        
+        var saveYesImgCb = function(err, bytes) {
+          if (err) throw err;
+          qrcode.save(no_img, no_url, saveNoImgCb);
+        };
+
+        var saveNoImgCb = function(err, bytes) {
+          if (err) throw err;
+          buildPoster('portrait'); // accepts 'portrait' or 'landscape'
+        };
+
+        qrcode.save(yes_img, yes_url, saveYesImgCb);
+
         return res.render("./../views/questions/show", {
           title: question.value,
           question: question
