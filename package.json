@@ -17,6 +17,8 @@
     "canvas": "~0.13.1",
     "pdfkit": "~0.1.9",
     "cookies": "~0.3.2"
+    "xtend": "~1.0.3",
+    "proj4js": "~0.3.0"
   },
   "devDependencies": {
     "node-dev": "~0.2.3"

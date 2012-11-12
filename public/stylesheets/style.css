@@ -12,3 +12,11 @@ ul.answer_graph li.yes{left:0}
 ul.answer_graph li.no{right:0;text-align:right}
 li.no h2{background:#c92235;color:#fff}
 li.yes h2{background:#a1cf32}
+.overlay{display:none;font-size:10pt}
+.ol-overlaycontainer .overlay{display:block}
+#vienna{text-decoration:none;color:#fff;font-size:11pt;font-weight:bold;text-shadow:#000 .1em .1em .2em}
+#popup{width:200px;margin-left:-107px;margin-bottom:12px;-webkit-border-radius:5px;border-radius:5px;padding:5px}
+.arrow_box{position:relative;background:#88b7d5;border:2px solid #c2e1f5}
+.arrow_box:after,.arrow_box:before{top:100%;border:solid transparent;content:" ";height:0;width:0;position:absolute;pointer-events:none}
+.arrow_box:after{border-color:rgba(136,183,213,0);border-top-color:#88b7d5;border-width:10px;left:50%;margin-left:-10px}
+.arrow_box:before{border-color:rgba(194,225,245,0);border-top-color:#c2e1f5;border-width:13px;left:50%;margin-left:-13px}
