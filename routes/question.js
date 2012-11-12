@@ -87,21 +87,20 @@ exports.show = function(req, res) {
         //   console.log(url);
         // });
 
-        var buildPoster = function(layout) { // TODO: pass layout and have layout specific values
-        // Can't use different fonts, there's a bug that corrupts the pdf.
-        // We can eventually replace 'Yes' and 'No' with a green check mark
-        // and red x respectively. See http://pdfkit.org/docs/vector.html
-        var s = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.".substring(0,139) + "?";
+        var buildPoster = function(layout) { 
+          // Can't use different fonts, there's a bug that corrupts the pdf.
+          // We can eventually replace 'Yes' and 'No' with a green check mark
+          // and red X respectively. See http://pdfkit.org/docs/vector.html
           doc = new PDFDocument({
             layout: layout
           });
           doc.info['Author'] = "Software Niagara";
           if (layout == 'landscape')
           {
-            if (/*question.value.length*/s.length <= 40) doc.fontSize(70);
-            else if (/*question.value.length*/ s.length <= 70) doc.fontSize(50);
+            if (question.value.length <= 40) doc.fontSize(70);
+            else if (question.value.length <= 70) doc.fontSize(50);
             else doc.fontSize(45);
-            doc.text(/*question.value*/s); // Left-aligned by default.
+            doc.text(question.value); // Left-aligned by default.
             doc.fontSize(45);
             doc.image(yes_img, 100, 330, {
               fit: [200, 200]
@@ -112,28 +111,27 @@ exports.show = function(req, res) {
             }).text('No', 550, 530);
             // Add some advertising text in bottom right corner.
             doc.fontSize(10);
-            doc.text('Created with <website_url>', 650, 590); // or github.com/SoftwareNiagara?
+            doc.text('Created with <website_url>', 650, 590);
           }
           else // portrait
           {
-            if (/*question.value.length*/s.length <= 40) doc.fontSize(70);
-            else if (/*question.value.length*/ s.length <= 70) doc.fontSize(50);
-            else doc.fontSize(45);
-            doc.text(/*question.value*/s); // Left-aligned by default.
+            if (question.value.length <= 40) doc.fontSize(70);
+            else if (question.value.length <= 70) doc.fontSize(60);
+            else doc.fontSize(44);
+            doc.text(question.value); // Left-aligned by default.
             doc.fontSize(45);
-            doc.image(yes_img, 50, 530, {
+            doc.image(yes_img, 60, 450, {
               fit: [200, 200]
-            }).text('Yes', 155, 530);
+            }).text('Yes', 120, 650);
             // Add 'no' QR code to the bottom right.
-            doc.image(no_img, 350, 530, {
+            doc.image(no_img, 350, 450, {
               fit: [200, 200]
-            }).text('No', 550, 530);
+            }).text('No', 425, 650);
             // Add some advertising text in bottom right corner.
             doc.fontSize(10);
-            doc.text('Created with <website_url>', 650, 590); // or github.com/SoftwareNiagara?
+            doc.text('Created with <website_url>', 450, 760);
           }
-          // And finally save it.
-          doc.write(poster);
+          doc.write(poster); // And finally save it.
         };
         
         var saveYesImgCb = function(err, bytes) {
