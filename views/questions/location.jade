@@ -34,6 +34,8 @@ block content
           error: function(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == '403') {
               window.location = "/already_voted";
+            } else {
+              window.location = "/failed_location";
             }
           },
           fail:  function(jqXHR, textStatus, errorThrown) {
