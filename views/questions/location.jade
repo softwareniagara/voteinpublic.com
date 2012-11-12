@@ -28,7 +28,7 @@ block content
             if (jqXHR.status == '200') {
               window.location = "/results/#{question_id}";
             } else {
-              window.location = "/no_locations";
+              window.location = "/vote_failed";
             }
           },
           error: function(jqXHR, textStatus, errorThrown) {
@@ -44,13 +44,19 @@ block content
         });
       };
       
-      var onFailedPosition = function() {
-        window.location = "/failed_location";
+      var onFailedPosition = function(err) {
+         if(err.code == 1) {
+          // access is denied by user... what a shame
+          window.location = "/no_location";
+        }else if( err.code == 2) {
+          // position is not available
+          window.location = "/failed_location";
+        }
       }
     
       $(document).ready(function() {
         if (navigator && navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(onSuccessfulPosition, onFailedPosition);
+          navigator.geolocation.getCurrentPosition(onSuccessfulPosition, onFailedPosition, {timeout: 10000 });
         } else {
           onFailedPosition();  
         }

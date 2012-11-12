@@ -24,8 +24,8 @@ exports.get500 = function(req, res){
  */
 exports.no_location = function(req, res){
   res.render('./../views/shared/messages', { 
-  	title: 'Error getting Location', 
-  	message: 'You must supply your location in order to vote' 
+  	title: 'You have opted not to share your location', 
+  	message: 'As a result your vote will not be counted. If you want your vote to count please go back and allow sharing of your location.' 
   });
 };
 
@@ -34,8 +34,8 @@ exports.no_location = function(req, res){
  */
 exports.failed_location = function(req, res){
   res.render('./../views/shared/messages', { 
-  	title: 'Error getting Location', 
-  	message: 'Unable to find your location.' 
+  	title: 'Error getting your location', 
+  	message: 'Unable to find your location. Your vote will not be continued unless your location is known.'
   });
 };
 
@@ -46,5 +46,15 @@ exports.already_voted = function(req, res){
   res.render('./../views/shared/messages', { 
   	title: 'You already voted on this question', 
   	message: 'You are unable to vote on the same question more than once.' 
+  });
+};
+
+/*
+ * GET vote_failed
+ */
+exports.vote_failed = function(req, res){
+  res.render('./../views/shared/messages', { 
+  	title: 'Vote failed to be cast', 
+  	message: 'An unknown error has occured that prevented your vote from being cast. Please try again and ensure that your location is being shared.' 
   });
 };
