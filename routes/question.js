@@ -307,7 +307,8 @@ exports.create_poster = function(req, res) {
     var outputPDF = function(doc) {
       doc.output(function(data) {
         res.writeHead(200, {
-          'Content-type': 'application/pdf'
+          'Content-type': 'application/pdf',
+          'Content-disposition': 'attachment; filename=voteinpower_poster.pdf'
         });
         return res.end(data, 'binary');
       });
