@@ -81,61 +81,49 @@ exports.show = function(req, res) {
           , yes_url = url + "/yes"
           , no_url = url + "/no";
 
-        // Can use the base64 image data for displaying the QR codes on a page.
-        /*
-        qrcode.toDataURL("qrcode-text", function(err, url){
-          console.log(url);
-        });
-        */
+        // Want to display the QR code on a webpage?
+        // Embed it in an image using the base64 image data.
+        // qrcode.toDataURL("qrcode-text", function(err, url){
+        //   console.log(url);
+        // });
 
         var buildPoster = function() {
-        // Can use different fonts, but avoiding it because there's a bug where
-        // it corrupts the pdf so you can't print it.
+        // Can't use different fonts, there's a bug that corrupts the pdf.
+        // We can eventually replace 'Yes' and 'No' with a green check mark
+        // and red x respectively. See http://pdfkit.org/docs/vector.html
         var s = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.".substring(0,140) + "?";
           doc = new PDFDocument({
             layout: 'landscape'
             //layout: 'portrait' // is the default value
           }); // or simply `doc = new PDFDocument();` for portrait mode.
           doc.info['Author'] = "Software Niagara";
-          doc.fontSize(50); 
-          // doc.moveDown();
-          // doc.text(s); // left-aligned by default
-          doc.text(s,{
-            align: 'center'
-          });
+          doc.fontSize(45);
+          doc.text(s); // Left-aligned by default.
+          doc.image(yes_img, 100, 350, {
+            fit: [200, 200]
+          }).text('Yes', 155, 550);
+          // Add 'no' QR code to the bottom right.
+          doc.image(no_img, 475, 350, {
+            fit: [200, 200]
+          }).text('No', 550, 550);
+          // Add some advertising text in bottom right corner.
           doc.fontSize(10);
-          doc.text('by Software Niagara', 699, 600); // or github.com/SoftwareNiagara?
+          doc.text('Created with <website_url>', 650, 600); // or github.com/SoftwareNiagara?
+          // And finally save it.
+          doc.write(poster);
         };
         
-
         var saveYesImgCb = function(err, bytes) {
           if (err) throw err;
-          buildPoster();
-          doc.image(yes_img, 100, 400, {
-            fit: [200, 200]
-          }).rect(350, 100, 100, 100).stroke().text('Fit', 350, 85); // TODO: fine tune this stuff
           qrcode.save(no_img, no_url, saveNoImgCb);
         };
 
         var saveNoImgCb = function(err, bytes) {
           if (err) throw err;
-          doc.image(no_img, 400, 400, {
-            fit: [200, 200]
-          }).rect(350, 100, 100, 100).stroke().text('Fit', 350, 85); // TODO: fine tune this stuff
-          doc.write(poster);
+          buildPoster();
         };
 
         qrcode.save(yes_img, yes_url, saveYesImgCb);
-     /*   
-        // Saves the QR code images as PNG files (if directory in path exists).
-        qrcode.save(yes_img, yes_url, function(err, bytes){
-          if (err) throw err;
-          doc.image(yes_img, 100, 400, {
-            fit: [200, 200]
-          }).rect(350, 100, 100, 100).stroke().text('Fit', 350, 85);
-          doc.write(poster);
-        });
-      */
 
         return res.render("./../views/questions/show", {
           title: question.value,
