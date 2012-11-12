@@ -35,7 +35,7 @@ exports.no_location = function(req, res){
 exports.failed_location = function(req, res){
   res.render('./../views/shared/messages', { 
   	title: 'Error getting your location', 
-  	message: 'Unable to find your location. Your vote will not be continued unless your location is known.'
+  	message: 'Unable to find your location. Your vote will not be continued unless your location can be determined.'
   });
 };
 
