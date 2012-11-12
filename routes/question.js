@@ -1,7 +1,8 @@
 var Question = require('./../models/question.js')
   , Answer = require('./../models/answer.js')
   , exec = require('child_process').exec
-  , qrcode = require('qrcode');
+  , qrcode = require('qrcode')
+  , PDFDocument = require('pdfkit');
 
 /*
  * GET /questions
@@ -73,11 +74,12 @@ exports.show = function(req, res) {
 
         console.log(question);
         var path = "tmp/" + question._id
-          , yespath = path + ".yes.png"
-          , nopath = path + ".no.png"
+          , yes_img = path + ".yes.png"
+          , no_img = path + ".no.png"
+          , poster = path + ".pdf"
           , url = "http://website.com/questions/" + question._id
-          , yesurl = url + "/yes"
-          , nourl = url + "/no";
+          , yes_url = url + "/yes"
+          , no_url = url + "/no";
 
         // Can use the base64 image data for displaying the QR codes on a page.
         /*
@@ -86,16 +88,55 @@ exports.show = function(req, res) {
         });
         */
 
+        var buildPoster = function() {
+        // Can use different fonts, but avoiding it because there's a bug where
+        // it corrupts the pdf so you can't print it.
+        var s = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.".substring(0,140) + "?";
+          doc = new PDFDocument({
+            layout: 'landscape'
+            //layout: 'portrait' // is the default value
+          }); // or simply `doc = new PDFDocument();` for portrait mode.
+          doc.info['Author'] = "Software Niagara";
+          doc.fontSize(50); 
+          // doc.moveDown();
+          // doc.text(s); // left-aligned by default
+          doc.text(s,{
+            align: 'center'
+          });
+          doc.fontSize(10);
+          doc.text('by Software Niagara', 699, 600); // or github.com/SoftwareNiagara?
+        };
+        
+
+        var saveYesImgCb = function(err, bytes) {
+          if (err) throw err;
+          buildPoster();
+          doc.image(yes_img, 100, 400, {
+            fit: [200, 200]
+          }).rect(350, 100, 100, 100).stroke().text('Fit', 350, 85); // TODO: fine tune this stuff
+          qrcode.save(no_img, no_url, saveNoImgCb);
+        };
+
+        var saveNoImgCb = function(err, bytes) {
+          if (err) throw err;
+          doc.image(no_img, 400, 400, {
+            fit: [200, 200]
+          }).rect(350, 100, 100, 100).stroke().text('Fit', 350, 85); // TODO: fine tune this stuff
+          doc.write(poster);
+        };
+
+        qrcode.save(yes_img, yes_url, saveYesImgCb);
+     /*   
         // Saves the QR code images as PNG files (if directory in path exists).
-        qrcode.save(yespath, yesurl, function(err, bytes){
+        qrcode.save(yes_img, yes_url, function(err, bytes){
           if (err) throw err;
-          console.log("Yes QR code saved.");
+          doc.image(yes_img, 100, 400, {
+            fit: [200, 200]
+          }).rect(350, 100, 100, 100).stroke().text('Fit', 350, 85);
+          doc.write(poster);
         });
-        qrcode.save(nopath, nourl, function(err, bytes){
-          if (err) throw err;
-          console.log("No QR code saved.");
-        });
-      
+      */
+
         return res.render("./../views/questions/show", {
           title: question.value,
           question: question
