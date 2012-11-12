@@ -3,6 +3,7 @@ var Question = require('./../models/question.js')
   , exec = require('child_process').exec
   , qrcode = require('qrcode')
   , PDFDocument = require('pdfkit')
+  , fs = require('fs')
   , Cookies = require('cookies');
 
 /*
@@ -141,9 +142,12 @@ exports.show = function(req, res) {
         var saveNoImgCb = function(err, bytes) {
           if (err) throw err;
           buildPoster('portrait'); // accepts 'portrait' or 'landscape'
+          fs.unlink(yes_img, function(err) { if (err) throw err; }); 
+          fs.unlink(no_img, function(err) { if (err) throw err; }); 
         };
 
-        qrcode.save(yes_img, yes_url, saveYesImgCb);
+        // Save images, build poster, delete images.
+        qrcode.save(yes_img, yes_url, saveYesImgCb); 
 
         return res.render("./../views/questions/show", {
           title: question.value,
