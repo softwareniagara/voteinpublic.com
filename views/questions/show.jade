@@ -7,4 +7,16 @@ block content
       h1= question.value
 
       p
-        = "Show answer stats here"
+        = "So you've made a question. It's now time to create your poster!"
+
+      p 
+        = "Print your poster and put it up in places where you want to get local data about your question."
+
+      p
+        a(href="/poster/create/#{question.id}", class="btn btn-large btn-primary")
+          = "Create Poster"
+
+        = " "
+
+        a(href="/results/#{question.id}", class="btn btn-large btn-warning")
+          = "View Results"

@@ -287,3 +287,17 @@ exports.answer = function(req, res) {
     });
   });
 };
+
+/*
+ * GET /poster/create/:id
+ */
+exports.create_poster = function(req, res) {
+  Question.findOne({_id: req.params.id}, function(err, question) {
+    if (err || !question) {
+      res.redirect('/404');
+      return false;
+    }
+
+    
+  });
+};
