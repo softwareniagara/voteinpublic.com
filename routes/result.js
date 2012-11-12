@@ -91,7 +91,7 @@ var getClusteredAnswers = function(answer, question_id, answers, results, callba
   return Answer.find({
     question_id: question_id,
     _id: {$nin: answers},
-    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.001}
+    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.00005}
   }, function(err, rawResults) {
     if (err) {
       return callback(err, null);
@@ -99,28 +99,43 @@ var getClusteredAnswers = function(answer, question_id, answers, results, callba
       var result = {
         yes: 0,
         no: 0,
-        coordinates: null
+        coordinates: null,
+        includedCoordinates: []
       };
 
       if (answer) {
         result.coordinates = answer.coordinates;
+        result.includedCoordinates.push(answer.coordinates);
         if (answer.value == 'yes') {
           result.yes = result.yes + 1;
         } else if (answer.value == 'no') {
           result.no = result.no + 1;
         }
+        answers.push(answer.id);
       }
 
       if (rawResults && rawResults.length > 0) {
         for (var i = 0, max = rawResults.length; i < max; i++) {
-          var rawResult = rawResults[i];
-          answers.push(rawResult.id);
-          if (rawResult.value == 'yes') {
-            result.yes = result.yes + 1;
-          } else if (rawResult.value == 'no') {
-            result.no = result.no + 1;
+          var insertNew = true
+            , rawResult = rawResults[i];
+
+          for (var j = 0, jMax = answers.length; j < jMax; j++) {
+            if (answers[j] == rawResult.id) {
+              insertNew = false;
+              break;
+            }
           }
-          result.coordinates = rawResult.coordinates;
+
+          if (insertNew) {
+            answers.push(rawResult.id);
+            if (rawResult.value == 'yes') {
+              result.yes = result.yes + 1;
+            } else if (rawResult.value == 'no') {
+              result.no = result.no + 1;
+            }
+            result.coordinates = rawResult.coordinates;
+            result.includedCoordinates.push(rawResult.coordinates);
+          }
         }
 
         results.push(result);
@@ -132,7 +147,6 @@ var getClusteredAnswers = function(answer, question_id, answers, results, callba
           if (err) {
             return callback(err, null);
           } else {
-            answers.push(answer.id);
             return getClusteredAnswers(answer, question_id, answers, results, callback);
           }
         });
