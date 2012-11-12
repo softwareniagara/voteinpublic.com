@@ -232,7 +232,8 @@ exports.create_poster = function(req, res) {
       , poster = path + ".pdf"
       , url = "http://website.com/questions/" + question._id
       , yes_url = url + "/yes"
-      , no_url = url + "/no";
+      , no_url = url + "/no"
+      , ad = 'Created using voteinpublic.com';
 
     // Want to display the QR code on a webpage?
     // Embed it in an image using the base64 image data.
@@ -264,7 +265,7 @@ exports.create_poster = function(req, res) {
         }).text('No', 550, 530);
         // Add some advertising text in bottom right corner.
         doc.fontSize(10);
-        doc.text('Created with <website_url>', 650, 590);
+        doc.text(ad, 650, 590);
       }
       else // portrait
       {
@@ -282,7 +283,7 @@ exports.create_poster = function(req, res) {
         }).text('No', 425, 650);
         // Add some advertising text in bottom right corner.
         doc.fontSize(10);
-        doc.text('Created with <website_url>', 450, 760);
+        doc.text(ad, 450, 760);
       }
 
       // send the pdf to the browser
