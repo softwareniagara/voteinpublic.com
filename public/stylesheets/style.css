@@ -1,8 +1,9 @@
 body{background-color:#fff}
 a{color:#00b7ff}
 .navbar .brand{color:#fff}
-.ask-question{text-align:center;}
-.ask-question h1{font-size:72px;line-height:1}
+form#question_ask input.question{font-size:2em;padding:.286em;margin:.286em;}
+.ask-question{text-align:center}
+h1{font-size:3em;line-height:1}
 #map{height:500px}
 ul.answer_graph{margin:0;padding:0;position:relative}
 ul.answer_graph li{margin:0;padding:0;list-style-type:none;position:absolute}
