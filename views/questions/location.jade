@@ -4,7 +4,7 @@ block content
   
   div(class="row")
     div(class="span12")
-      h1= "Determining Location"
+      h1= "Determining Location..."
       p
         = "Your vote for '" + answer + "' will be processed as soon we can verify your location."
         = "When prompted, please allow us to use your current location or your vote will not be valid."
@@ -28,17 +28,22 @@ block content
             if (jqXHR.status == '200') {
               window.location = "/results/#{question_id}";
             } else {
-              alert(data.error);
+              window.location = "/no_locations";
             }
           },
           error: function(jqXHR, textStatus, errorThrown) {
-            window.location = "/no_locations";
+            if (jqXHR.status == '403') {
+              window.location = "/already_voted";
+            }
+          },
+          fail:  function(jqXHR, textStatus, errorThrown) {
+            window.location = "/failed_location";
           }
         });
       };
       
       var onFailedPosition = function() {
-        alert('wtf');
+        window.location = "/failed_location";
       }
     
       $(document).ready(function() {
