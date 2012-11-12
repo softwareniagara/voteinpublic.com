@@ -169,16 +169,35 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   var questionValue = req.body.question.trim();
 
-  if (questionValue == '') {
-    req.session.error = 'You must ask a question!';
-    res.redirect('/');
-    return false;
-  }
+  /*
+   * Validations Hacks
+   * this is no means the best practice. All validations should go into the model
+   * this code should be refractored at some point.
+   * - Michael (Nov 11, 2012)
+  */
+    if (questionValue == '') {
+      req.session.error = 'You must ask a question!';
+      res.redirect('/');
+      return false;
+    }
 
-  // Add a question mark if there isn't one present as the last character
-  if (questionValue.slice(-1) !== '?') {
-    questionValue += '?';
-  }
+    // Minimum Length should be 140 characters
+    if (questionValue.length > 140) {
+      req.session.error = 'Your question must be less than 140 characters! Please revise.';
+      res.redirect('/');
+      return false;  
+    }
+
+    // Add a question mark if there isn't one present as the last character
+    // should go into an after save filter inside the model
+    if (questionValue.slice(-1) !== '?') {
+      questionValue += '?';
+    }
+
+    //
+  /*
+  * End of Validation Hacks
+  */
 
   var question = new Question({
     value: questionValue
