@@ -75,7 +75,9 @@ app.get('/results/:id/clustered.:format?', result.clustered);
 app.get('/results/:id.:format?', result.show);
 app.get('/map', map.show);
 app.get('/config/kml/list', config.getKMLFiles);
-
+app.get('/poster/create/:id', question.create_poster);
+app.get('/config/kml/list', config.kml);
+app.get('/config/:id', config.get);
 app.get('/404', error.get404);
 app.get('/500', error.get500);
 app.get('/no_location', error.no_location);
