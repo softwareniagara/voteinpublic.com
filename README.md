@@ -12,4 +12,14 @@ Let's try [pdfkit](http://pdfkit.org) with
 
 You'll need to download some extra packages to get node-canvas to work.
 
-    sudo apt-get install libpixman-1-dev libcairo2-dev
+On Ubuntu:
+
+``` bash
+sudo apt-get install libpixman-1-dev libcairo2-dev
+```
+
+On OS X with Homebrew:
+
+``` bash
+brew install cairo && brew link cairo
+```
