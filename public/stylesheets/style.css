@@ -1,4 +1,4 @@
-body{background-color:#fff}
+body{background:#f0f0f0 url("../images/bg.png") top left repeat}
 a{color:#00b7ff}
 @media (min-width: 980px){&{padding-top:90px}
 }.navbar.navbar-inverse .navbar-inner{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #2555a5), color-stop(1, #224e98));background:-webkit-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-moz-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-o-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-ms-linear-gradient(top, #2555a5 0%, #224e98 100%);background:linear-gradient(top, #2555a5 0%, #224e98 100%)}
