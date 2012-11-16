@@ -22,16 +22,26 @@ a {
 		color: white;
 	}
 	
-	.nav li a { 
+	.nav-collapse .nav li a { 
 		color: pollapp_light_blue;
 		
 		&:hover {
 			color: white;
+			background-color: transparent;
 		}
 	}
 	
-	.nav li.active a {
+	.nav-collapse.in .nav li.active a:hover {
 		background-color: darken(pollapp_blue, 5%);
+	}
+	
+	
+	.nav-collapse.in .nav li.active a {
+		background-color: darken(pollapp_blue, 5%);
+	}
+	
+	.btn-navbar {
+		background: linear-gradient(darken(pollapp_blue, 5%), darken(pollapp_blue, 15%));
 	}
 }
 
