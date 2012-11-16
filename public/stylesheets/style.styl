@@ -5,11 +5,15 @@ pollapp_blue = #224E98;
 pollapp_light_blue = #BDCAE0;
 
 body {
-  background-color: #ffffff
+  background-color: #ffffff;
 }
 
 a {
   color: #00B7FF
+}
+
+@media (min-width: 980px) { 
+	padding-top: 90px;
 }
 
 /* Top Navbar style */
@@ -22,26 +26,43 @@ a {
 		color: white;
 	}
 	
-	.nav-collapse .nav li a { 
-		color: pollapp_light_blue;
-		
-		&:hover {
-			color: white;
-			background-color: transparent;
+	.nav-collapse .nav li {
+		a {
+			color: pollapp_light_blue;
+			
+			&:hover {
+				color: white;
+				background-color: transparent;
+			}	
 		}
-	}
-	
-	.nav-collapse.in .nav li.active a:hover {
-		background-color: darken(pollapp_blue, 5%);
-	}
-	
-	
-	.nav-collapse.in .nav li.active a {
-		background-color: darken(pollapp_blue, 5%);
+		
+		&.active {
+			a {
+				background-color: darken(pollapp_blue, 5%);
+				
+				&:hover {
+					background-color: darken(pollapp_blue, 5%);
+				}
+			}
+		}
 	}
 	
 	.btn-navbar {
 		background: linear-gradient(darken(pollapp_blue, 5%), darken(pollapp_blue, 15%));
+	}
+}
+
+@media (min-width: 980px) {
+	.navbar.navbar-inverse {
+		.brand {
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+		
+		.nav-collapse .nav > li > a {
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
 	}
 }
 
