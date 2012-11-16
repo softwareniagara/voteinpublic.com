@@ -1,12 +1,39 @@
 /* Color & style constants */
-pollapp_red = #c92235
-pollapp_green = #a1cf32
+pollapp_red = #c92235;
+pollapp_green = #a1cf32;
+pollapp_blue = #224E98;
+pollapp_light_blue = #BDCAE0;
 
-body
+body {
   background-color: #ffffff
+}
 
-a
+a {
   color: #00B7FF
+}
+
+/* Top Navbar style */
+.navbar.navbar-inverse {
+	.navbar-inner {
+		background: linear-gradient(lighten(pollapp_blue, 5%), pollapp_blue);
+	}
+	
+	.brand {
+		color: white;
+	}
+	
+	.nav li a { 
+		color: pollapp_light_blue;
+		
+		&:hover {
+			color: white;
+		}
+	}
+	
+	.nav li.active a {
+		background-color: darken(pollapp_blue, 5%);
+	}
+}
 
 /* Top Navbar style */
 .navbar 
