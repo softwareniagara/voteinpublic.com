@@ -2,15 +2,16 @@ extends layout
 
 block content
 
-  div(class="ask-question")
-    h1= "What is your Question?"
-
-    form(name="question", action="/questions", method="post", id="question_ask")
-      input(type="name", name="question", class="span8 question", maxlength="140")
-      span(class="help-block")
-        = "Must be a yes or no question"
-      p
-        button(class="btn btn-success btn-large")
-          = "Ask your question"
-
-  hr
+  article.question
+    .container
+      .row-fluid
+        .span12
+          header
+            h1= "What do you want to ask?"
+      .row-fluid
+        form(name="question", action="/questions", method="post", id="question_ask")
+          .span8
+            input(type="text", name="question", class="span12", maxlength="140")
+          .span4
+            button(class="btn btn-primary")
+              = "Ask it!"

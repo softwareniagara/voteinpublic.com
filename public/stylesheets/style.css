@@ -1,7 +1,9 @@
-body{background:#f0f0f0 url("../images/bg.png") top left repeat}
-a{color:#00b7ff}
-@media (min-width: 980px){&{padding-top:90px}
-}.navbar.navbar-inverse .navbar-inner{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #2555a5), color-stop(1, #224e98));background:-webkit-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-moz-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-o-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-ms-linear-gradient(top, #2555a5 0%, #224e98 100%);background:linear-gradient(top, #2555a5 0%, #224e98 100%)}
+body{background:#f0f0f0 url("../images/bg.png") top left repeat;padding-top:60px}
+@media (max-width: 767px){body{padding-top:0}
+}a{color:#00b7ff}
+.btn.btn-primary{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #a0504b), color-stop(1, #964b46));background:-webkit-linear-gradient(top, #a0504b 0%, #964b46 100%);background:-moz-linear-gradient(top, #a0504b 0%, #964b46 100%);background:-o-linear-gradient(top, #a0504b 0%, #964b46 100%);background:-ms-linear-gradient(top, #a0504b 0%, #964b46 100%);background:linear-gradient(top, #a0504b 0%, #964b46 100%)}
+.navbar.navbar-inverse{margin-bottom:0;}
+.navbar.navbar-inverse .navbar-inner{-webkit-border-radius:0;border-radius:0;background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #2555a5), color-stop(1, #224e98));background:-webkit-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-moz-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-o-linear-gradient(top, #2555a5 0%, #224e98 100%);background:-ms-linear-gradient(top, #2555a5 0%, #224e98 100%);background:linear-gradient(top, #2555a5 0%, #224e98 100%)}
 .navbar.navbar-inverse .brand{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.5)}
 .navbar.navbar-inverse .nav-collapse .nav li a{color:#bdcae0;text-shadow:0 -1px 0 rgba(0,0,0,0.45);}
 .navbar.navbar-inverse .nav-collapse .nav li a:hover{color:#fff;background-color:transparent}
@@ -10,7 +12,14 @@ a{color:#00b7ff}
 .navbar.navbar-inverse .btn-navbar{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #204a90), color-stop(1, #1d4281));background:-webkit-linear-gradient(top, #204a90 0%, #1d4281 100%);background:-moz-linear-gradient(top, #204a90 0%, #1d4281 100%);background:-o-linear-gradient(top, #204a90 0%, #1d4281 100%);background:-ms-linear-gradient(top, #204a90 0%, #1d4281 100%);background:linear-gradient(top, #204a90 0%, #1d4281 100%)}
 @media (min-width: 980px){.navbar.navbar-inverse .brand{padding-top:20px;padding-bottom:20px}
 .navbar.navbar-inverse .nav-collapse .nav > li > a{padding-top:20px;padding-bottom:20px}
-}form#question_ask input.question{font-size:2em;padding:.286em;margin:.286em;}
+}article.question{background-color:#e0e0e0;border-bottom:30px solid #d0d0d0;padding:90px 0;}
+article.question header h1,article.question header h2,article.question header h3,article.question header h4,article.question header h5,article.question header h6{font-family:'Crete Round',serif;font-size:5em;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,0.5);margin-bottom:30px}
+article.question form input,article.question form button{font-size:2em;padding-top:1em;padding-bottom:1em;line-height:1em;height:1em}
+article.question form button{width:100%;padding:.5em 0;vertical-align:top;height:auto}
+@media (max-width: 767px){article.question{margin:0 -20px;padding:20px;}
+article.question header h1,article.question header h2,article.question header h3,article.question header h4,article.question header h5,article.question header h6{font-size:3em}
+}.rgba article.question{background-color:rgba(0,0,0,0.05);border-bottom-color:rgba(0,0,0,0.1)}
+form#question_ask input.question{font-size:2em;padding:.286em;margin:.286em;}
 .ask-question{text-align:center}
 h1{font-size:3em;line-height:1}
 #map{height:500px}
@@ -19,7 +28,7 @@ ul.answer_graph li{margin:0;padding:0;list-style-type:none;position:absolute}
 ul.answer_graph li h2{padding:.5em}
 ul.answer_graph li.yes{left:0}
 ul.answer_graph li.no{right:0;text-align:right}
-li.no h2{background:#c92235;color:#fff}
+li.no h2{background:#964b46;color:#fff}
 li.yes h2{background:#a1cf32}
 .ask-question{text-align:center;}
 .ask-question h1{font-size:72px;line-height:1}
