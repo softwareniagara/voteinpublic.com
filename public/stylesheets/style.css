@@ -1,5 +1,5 @@
 body{background:#fff;padding-top:60px}
-@media (max-width: 767px){body{padding-top:0}
+@media (max-width: 979px){body{padding-top:0}
 }a{color:#00b7ff}
 .btn.btn-primary{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #a0504b), color-stop(1, #964b46));background:-webkit-linear-gradient(top, #a0504b 0%, #964b46 100%);background:-moz-linear-gradient(top, #a0504b 0%, #964b46 100%);background:-o-linear-gradient(top, #a0504b 0%, #964b46 100%);background:-ms-linear-gradient(top, #a0504b 0%, #964b46 100%);background:linear-gradient(top, #a0504b 0%, #964b46 100%)}
 .navbar.navbar-inverse{margin-bottom:0;}

@@ -3,18 +3,20 @@ html
   head
     title= title
     meta(charset='utf-8')
-    meta(name='viewport', content='device-width, initial-scale=1.0')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+
     script(src='/libs/modernizr/modernizr.custom.22130.js')
-    link(rel='stylesheet', href='/libs/bootstrap/css/bootstrap.min.css')
-    style
-      body {
-        padding-top: 80px;
-      }
+
     link(href='http://fonts.googleapis.com/css?family=Crete+Round:400,400italic', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='/libs/bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='/libs/bootstrap/css/bootstrap-responsive.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+
     script(src='http://code.jquery.com/jquery-1.8.2.min.js')
+    script(src='/libs/fittext/jquery.fittext.js')
     script(src='/libs/bootstrap/js/bootstrap.min.js')
+    script(src='/js/main.js')
+
     block head
 
   body
