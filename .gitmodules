@@ -10,3 +10,6 @@
 [submodule "public/libs/openlayers"]
 	path = public/libs/openlayers
 	url = https://github.com/openlayers/ol3.git
+[submodule "public/libs/fittext"]
+	path = public/libs/fittext
+	url = https://github.com/davatron5000/FitText.js.git
