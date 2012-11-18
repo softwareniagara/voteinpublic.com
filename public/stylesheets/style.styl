@@ -1,4 +1,5 @@
 /* Color & style constants */
+pollapp_black = #262626;
 pollapp_red = #964B46;
 pollapp_green = #a1cf32;
 pollapp_blue = #224E98;
@@ -20,7 +21,7 @@ a {
 }
 
 .btn.btn-primary {
-  background: linear-gradient(lighten(pollapp_red, 5%), pollapp_red);
+  background: linear-gradient(lighten(pollapp_black, 15%), pollapp_black);
 }
 
 /* Top Navbar style */
@@ -76,6 +77,16 @@ a {
 			padding-bottom: 20px;
 		}
 	}
+}
+
+/* Alerts */
+.alert {
+  border-radius(0);
+  margin-bottom: 0;
+
+  .span12 {
+    min-height: 20px;
+  }
 }
 
 /* The Big Question */

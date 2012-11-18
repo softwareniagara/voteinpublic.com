@@ -1,7 +1,13 @@
 - if (typeof notice != 'undefined' && notice != '')
   .alert.alert-success
-    = notice
+    .container
+      .row-fluid
+        .span12
+          = notice
     
 - if (typeof error != 'undefined' && error != '')
   .alert.alert-error
-    = error
+    .container
+      .row-fluid
+        .span12
+          = error
