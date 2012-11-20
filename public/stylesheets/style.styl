@@ -1,7 +1,7 @@
 /* Color & style constants */
 pollapp_black = #262626;
 pollapp_red = #964B46;
-pollapp_green = #a1cf32;
+pollapp_green = #4B9646;
 pollapp_blue = #224E98;
 pollapp_light_blue = #BDCAE0;
 
@@ -134,53 +134,44 @@ article.question {
   }
 }
 
-
-/* Forms */
-form#question_ask input.question
-  font-size: 2em
-  padding: 0.286em
-  margin: 0.286em /*4px*/
-
-/* Ask a question styles */
-.ask-question
-  text-align: center
-
-h1
-  font-size: 3em /*52px*/
-  line-height: 1
-
-#map
-	height:500px
-
-  
+/* Map */
+#map {
+  height: 500px;
+}
+ 
 /* Results graph */
-ul.answer_graph
-  margin: 0
-  padding: 0
-  position: relative
-
-ul.answer_graph li
-  margin: 0
-  padding: 0
-  list-style-type: none
-  position: absolute
+ul.answer_graph {
+  margin: 0;
+  padding: 0;
+  position: relative;
   
-ul.answer_graph li h2
-  padding: .5em
-  
-ul.answer_graph li.yes
-  left: 0
-  
-ul.answer_graph li.no
-  right: 0
-  text-align:right
-  
-li.no h2
-  background: pollapp_red
-  color: white
-
-li.yes h2
-  background: pollapp_green
+  li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    position: absolute;
+    
+    h2 {
+      padding: .5em;
+      color: white;
+    }
+    
+    &.yes {
+      left: 0;
+      h2 {
+        background: linear-gradient(lighten(pollapp_green, 10%), pollapp_green);
+      }
+    }
+    
+    &.no {
+      right: 0;
+      text-align: right;
+      h2 {
+        background: linear-gradient(lighten(pollapp_red, 10%), pollapp_red);
+      }
+    }
+  }
+}
   
 
 .ask-question {
@@ -190,10 +181,6 @@ li.yes h2
     font-size: 72px;
     line-height: 1;
   }
-}
-
-#map {
-	height:500px;
 }
 
 .overlay {
@@ -227,6 +214,7 @@ li.yes h2
 	background: #88b7d5;
 	border: 2px solid #c2e1f5;
 }
+
 .arrow_box:after, .arrow_box:before {
 	top: 100%;
 	border: solid transparent;
@@ -244,6 +232,7 @@ li.yes h2
 	left: 50%;
 	margin-left: -10px;
 }
+
 .arrow_box:before {
 	border-color: rgba(194, 225, 245, 0);
 	border-top-color: #c2e1f5;
