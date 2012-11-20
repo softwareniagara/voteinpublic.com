@@ -52,7 +52,6 @@ function ginit() {
           bnds.extend(latLng);
         }
         map.fitBounds(bnds);
-        console.log(hmDat);
         hm = new google.maps.visualization.HeatmapLayer({data: hmDat, radius: 100});
         hm.setMap(map);
       }
