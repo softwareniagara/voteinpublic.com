@@ -20,20 +20,17 @@ article.question form input,article.question form button{font-size:2em;padding-t
 article.question form button{width:100%;padding:.5em 0;vertical-align:top;height:auto}
 @media (max-width: 767px){article.question{margin:0 -20px;padding:20px;}
 article.question header h1,article.question header h2,article.question header h3,article.question header h4,article.question header h5,article.question header h6{font-size:3em}
-}form#question_ask input.question{font-size:2em;padding:.286em;margin:.286em;}
-.ask-question{text-align:center}
-h1{font-size:3em;line-height:1}
-#map{height:500px}
+}#map{height:500px}
 ul.answer_graph{margin:0;padding:0;position:relative}
-ul.answer_graph li{margin:0;padding:0;list-style-type:none;float:left}
-ul.answer_graph li h2{padding:.5em}
-ul.answer_graph li.yes{left:0}
-ul.answer_graph li.no{right:0;text-align:right}
-li.no h2{background:#964b46;color:#fff}
-li.yes h2{background:#a1cf32}
+ul.answer_graph{margin:0;padding:0;position:relative;}
+ul.answer_graph li{margin:0;padding:0;list-style-type:none;float:left;}
+ul.answer_graph li h2{padding:.5em;color:#fff}
+ul.answer_graph li.yes{left:0;}
+ul.answer_graph li.yes h2{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #55aa4f), color-stop(1, #4b9646));background:-webkit-linear-gradient(top, #55aa4f 0%, #4b9646 100%);background:-moz-linear-gradient(top, #55aa4f 0%, #4b9646 100%);background:-o-linear-gradient(top, #55aa4f 0%, #4b9646 100%);background:-ms-linear-gradient(top, #55aa4f 0%, #4b9646 100%);background:linear-gradient(top, #55aa4f 0%, #4b9646 100%)}
+ul.answer_graph li.no{right:0;text-align:right;}
+ul.answer_graph li.no h2{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #aa554f), color-stop(1, #964b46));background:-webkit-linear-gradient(top, #aa554f 0%, #964b46 100%);background:-moz-linear-gradient(top, #aa554f 0%, #964b46 100%);background:-o-linear-gradient(top, #aa554f 0%, #964b46 100%);background:-ms-linear-gradient(top, #aa554f 0%, #964b46 100%);background:linear-gradient(top, #aa554f 0%, #964b46 100%)}
 .ask-question{text-align:center;}
 .ask-question h1{font-size:72px;line-height:1}
-#map{height:500px}
 .overlay{display:none;font-size:10pt}
 .ol-overlaycontainer .overlay{display:block}
 #vienna{text-decoration:none;color:#fff;font-size:11pt;font-weight:bold;text-shadow:#000 .1em .1em .2em}
