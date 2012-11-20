@@ -11,22 +11,23 @@ block head
 
 block content
 
-  div(class="row-fluid")
-    div(class="span12")
-      h1= question.value
+  div(class="container")
+    div(class="row-fluid")
+      div(class="span12")
+        h1= question.value
 
-  div(class="row-fluid")
-    div(class="span12")
-      ul(class="answer_graph")
-        li(style="width:" + yesWidth + "%;", class="answers yes")
-          h2= 'Yes (' + yesWidth + ')'
-        li(style="width:" + noWidth + "%;", class="answers no")
-          h2= 'No (' + noWidth + ')'
-      div(class='clear')
+    div(class="row-fluid")
+      div(class="span12")
+        ul(class="answer_graph")
+          li(style="width:" + yesWidth + "%;", class="answers yes")
+            h2= 'Yes (' + yesWidth + ')'
+          li(style="width:" + noWidth + "%;", class="answers no")
+            h2= 'No (' + noWidth + ')'
+        div(class='clear')
 
-  div(class="row-fluid")
-    div(class="span12")
-      .map
-        div(id="map")
+    div(class="row-fluid")
+      div(class="span12")
+        .map
+          div(id="map")
 
 
