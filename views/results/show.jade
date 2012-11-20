@@ -20,9 +20,9 @@ block content
       div(class="span12")
         ul(class="answer_graph")
           li(style="width:" + yesWidth + "%;", class="answers yes")
-            h2= 'Yes (' + yesWidth + ')'
+            h2(data-fit-text)= 'Yes (' + yesWidth + ')'
           li(style="width:" + noWidth + "%;", class="answers no")
-            h2= 'No (' + noWidth + ')'
+            h2(data-fit-text)= 'No (' + noWidth + ')'
         div(class='clear')
 
     div(class="row-fluid")
