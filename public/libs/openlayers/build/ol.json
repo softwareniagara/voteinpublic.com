@@ -1,0 +1,35 @@
+{
+
+  "id": "ol",
+
+  "css-allowed-unrecognized-properties": [
+    "user-select"
+  ],
+
+  "css-inputs": [
+    "css/ol.css"
+  ],
+
+  "css-output-file": "build/ol.css",
+
+  "externs": [
+    "build/src/external/externs/types.js",
+    "externs/bingmaps.js",
+    "externs/proj4js.js",
+    "externs/tilejson.js"
+  ],
+
+  "inherits": "../base.json",
+
+  "inputs": [
+    "build/src/external/src/exports.js",
+    "build/src/external/src/types.js"
+  ],
+
+  "output-wrapper": "(function(){%output%})();",
+
+  "paths": [
+    "src"
+  ]
+
+}
