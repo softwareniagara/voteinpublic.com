@@ -38,7 +38,6 @@ var init = function init() {
 	layer = new ol.layer.TileLayer({
 	  source: new ol.source.OpenStreetMap("OSM", {"sphericalMercator": true})
 	});
-			alert(config.main.map.center.lat);
 
 	map = new ol.Map({
 	  
