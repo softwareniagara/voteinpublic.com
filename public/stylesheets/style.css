@@ -25,7 +25,7 @@ article.question header h1,article.question header h2,article.question header h3
 h1{font-size:3em;line-height:1}
 #map{height:500px}
 ul.answer_graph{margin:0;padding:0;position:relative}
-ul.answer_graph li{margin:0;padding:0;list-style-type:none;position:absolute}
+ul.answer_graph li{margin:0;padding:0;list-style-type:none;float:left}
 ul.answer_graph li h2{padding:.5em}
 ul.answer_graph li.yes{left:0}
 ul.answer_graph li.no{right:0;text-align:right}
