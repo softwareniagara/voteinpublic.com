@@ -2,12 +2,13 @@ extends ../layout
 
 block content
 
-  div(class="row")
-    div(class="span12")
-      h1= "Recently asked questions"
+  div(class="container")
+    div(class="row-fluid")
+      div(class="span12")
+        h1= "Recently asked questions"
 
-      ul
-        each question in questions
-          li
-            a(href="/questions/#{question.id}")
-              = question.value
+        ul
+          each question in questions
+            li
+              a(href="/questions/#{question.id}")
+                = question.value

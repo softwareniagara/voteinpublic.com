@@ -1,13 +1,13 @@
 extends ../layout
 
 block content
-  
-  div(class="row")
-    div(class="span12")
-      h1= "Determining Location..."
-      p
-        = "Your vote for '" + answer + "' will be processed as soon we can verify your location."
-        = "When prompted, please allow us to use your current location or your vote will not be valid."
+  div(class="container")
+    div(class="row-fluid")
+      div(class="span12")
+        h1= "Determining Location..."
+        p
+          = "Your vote for '" + answer + "' will be processed as soon we can verify your location."
+          = "When prompted, please allow us to use your current location or your vote will not be valid."
         
   script
     (function($) {
