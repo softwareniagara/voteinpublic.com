@@ -93,9 +93,18 @@ var getClusteredAnswers = function(answer, question_id, answers, results, callba
   return Answer.find({
     question_id: question_id,
     _id: {$nin: answers},
-    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.00005}
+    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.00009}
   }, function(err, r) {
-    if (err) return callback(err, null);
+    if (err) {
+      // Find another random answer.
+      return Answer.findOne({
+        question_id: question_id,
+        _id: {$nin: answers}
+      }, function(err, answer) {
+        if (err) return callback(err, null);
+        return getClusteredAnswers(answer, question_id, answers, results, callback);
+      });
+    }
     
     if (r && r.length > 0) {
       for (var i = 0, max = r.length; i < max; i++) {
@@ -129,7 +138,14 @@ var getClusteredAnswers = function(answer, question_id, answers, results, callba
       });
     } else {
       results.push(result);
-      return callback(null, results);
+      // Find another random answer.
+      return Answer.findOne({
+        question_id: question_id,
+        _id: {$nin: answers}
+      }, function(err, answer) {
+        if (err) return callback(err, null);
+        return getClusteredAnswers(answer, question_id, answers, results, callback);
+      });
     }
   });
 };
