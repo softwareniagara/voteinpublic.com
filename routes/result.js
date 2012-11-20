@@ -44,7 +44,7 @@ exports.show = function(req, res) {
           countYes = answers.filter(filterYes).length;
           yesWidth = roundNumber(countYes / answers.length * 100, 2);
           noWidth = roundNumber(countNo / answers.length * 100, 2); 
-          return res.render("./../views/results/show", {
+          return res.render("./../views/results/gshow", {
             title: 'Results',
             question: question,
             answers: answers,

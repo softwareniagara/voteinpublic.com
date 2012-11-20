@@ -1,0 +1,32 @@
+extends ../layout
+
+block head
+  if typeof answers !== 'undefined' && answers != ''
+    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+    script(src='/js/gmap.js')
+  
+block content
+  div(class="container")
+    div(class="row-fluid")
+      div(class="span12")
+        h1(data-question-id=question.id)= question.value
+
+    if typeof answers !== 'undefined' && answers != ''
+      div(class="row-fluid")
+        div(class="span12")
+          ul(class="answer_graph")
+            if yesWidth !== 0
+              li(style="width:" + yesWidth + "%;", class="answers yes")
+                h2= 'Yes (' + yesWidth + ')'
+            if noWidth !== 0
+              li(style="width:" + noWidth + "%;", class="answers no")
+                h2= 'No (' + noWidth + ')'
+
+      div(class="row-fluid")
+        div(class="span12")
+          .map
+            div(id="map")
+          
+    else 
+      p.alert.alert-block 
+        = 'No votes have been collected'
