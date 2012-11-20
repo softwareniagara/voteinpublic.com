@@ -15,10 +15,34 @@ function ginit() {
         for (var i = 0, max = data.length; i < max; i++) {
           var node   = data[i]
             , latLng = new google.maps.LatLng(node.coordinates[0], node.coordinates[1])
-            , marker = new google.maps.Marker({
+            , pinColor
+            , pinImage
+            , pinShadow
+            , marker;
+            
+            if (node.yes > node.no) {
+              pinColor = "4B9646";
+            } else if (node.no > node.yes) {
+              pinColor = "964B46";
+            } else {
+              pinColor = "262626";
+            }
+            
+            pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" +   pinColor,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+            pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));
+            
+            marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
-                title: 'Yes: ' + node.yes + ', No: ' + node.no
+                title: 'Yes: ' + node.yes + ', No: ' + node.no,
+                icon: pinImage,
+                shadow: pinShadow
               }); 
           
           mrks.push(marker);
