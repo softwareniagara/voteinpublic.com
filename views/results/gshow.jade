@@ -2,7 +2,7 @@ extends ../layout
 
 block head
   if typeof answers !== 'undefined' && answers != ''
-    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false')
+    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization')
     script(src='/js/gmap.js')
   
 block content

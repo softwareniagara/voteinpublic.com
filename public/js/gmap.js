@@ -7,7 +7,9 @@ function ginit() {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         })
       , mrks = []
-      , bnds = new google.maps.LatLngBounds();
+      , hmDat = []
+      , bnds = new google.maps.LatLngBounds()
+      , hm;
     $.ajax('/results/'+qid+'/clustered', {
       success: function(data) {
         for (var i = 0, max = data.length; i < max; i++) {
@@ -20,9 +22,15 @@ function ginit() {
               }); 
           
           mrks.push(marker);
+          hmDat.push({
+            location: latLng, weight: node.yes + node.no
+          });
           bnds.extend(latLng);
         }
         map.fitBounds(bnds);
+        console.log(hmDat);
+        hm = new google.maps.visualization.HeatmapLayer({data: hmDat, radius: 100});
+        hm.setMap(map);
       }
     });
   })(jQuery);
