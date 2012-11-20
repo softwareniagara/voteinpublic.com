@@ -9,27 +9,27 @@ block head
     link(rel='stylesheet', href='/libs/openlayers/build/ol.css', type='text/css')
   
 block content
-
-  div(class="row-fluid")
-    div(class="span12")
-      h1= question.value
-
-  if typeof answers !== 'undefined' && answers != ''
+  div(class="container")
     div(class="row-fluid")
       div(class="span12")
-        ul(class="answer_graph")
-          if yesWidth !== 0
-            li(style="width:" + yesWidth + "%;", class="answers yes")
-              h2= 'Yes (' + yesWidth + ')'
-          if noWidth !== 0
-            li(style="width:" + noWidth + "%;", class="answers no")
-              h2= 'No (' + noWidth + ')'
-        div(class='clear')
+        h1= question.value
 
-    div(class="row-fluid")
-      div(class="span12")
-        .map
-          div(id="map")
-  else 
-    p.alert.alert-block 
-      = 'No votes have been collected'
+    if typeof answers !== 'undefined' && answers != ''
+      div(class="row-fluid")
+        div(class="span12")
+          ul(class="answer_graph")
+            if yesWidth !== 0
+              li(style="width:" + yesWidth + "%;", class="answers yes")
+                h2(data-fit-text)= 'Yes (' + yesWidth + ')'
+            if noWidth !== 0
+              li(style="width:" + noWidth + "%;", class="answers no")
+                h2(data-fit-text)= 'No (' + noWidth + ')'
+
+      div(class="row-fluid")
+        div(class="span12")
+          .map
+            div(id="map")
+          
+    else 
+      p.alert.alert-block 
+        = 'No votes have been collected'

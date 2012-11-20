@@ -2,21 +2,22 @@ extends ../layout
 
 block content
 
-  div(class="row")
-    div(class="span12")
-      h1= question.value
+  div(class="container")
+    div(class="row-fluid")
+      div(class="span12")
+        h1= question.value
 
-      p
-        = "So you've made a question. It's now time to create your poster!"
+        p
+          = "So you've made a question. It's now time to create your poster!"
 
-      p 
-        = "Print your poster and put it up in places where you want to get local data about your question."
+        p 
+          = "Print your poster and put it up in places where you want to get local data about your question."
 
-      p
-        a(href="/poster/create/#{question.id}", class="btn btn-large btn-primary")
-          = "Create Poster"
+        p
+          a(href="/poster/create/#{question.id}", class="btn btn-large btn-primary")
+            = "Create Poster"
 
-        = " "
+          = " "
 
-        a(href="/results/#{question.id}", class="btn btn-large btn-warning")
-          = "View Results"
+          a(href="/results/#{question.id}", class="btn btn-large btn-warning")
+            = "View Results"
