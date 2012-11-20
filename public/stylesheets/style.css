@@ -30,7 +30,6 @@ ul.answer_graph li.no{right:0;text-align:right;}
 ul.answer_graph li.no h2{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #aa554f), color-stop(1, #964b46));background:-webkit-linear-gradient(top, #aa554f 0%, #964b46 100%);background:-moz-linear-gradient(top, #aa554f 0%, #964b46 100%);background:-o-linear-gradient(top, #aa554f 0%, #964b46 100%);background:-ms-linear-gradient(top, #aa554f 0%, #964b46 100%);background:linear-gradient(top, #aa554f 0%, #964b46 100%)}
 .ask-question{text-align:center;}
 .ask-question h1{font-size:72px;line-height:1}
-#map{height:500px}
 .overlay{display:none;font-size:10pt}
 .ol-overlaycontainer .overlay{display:block}
 #vienna{text-decoration:none;color:#fff;font-size:11pt;font-weight:bold;text-shadow:#000 .1em .1em .2em}
