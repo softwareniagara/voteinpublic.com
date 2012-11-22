@@ -20,37 +20,40 @@ function ginit() {
             , pinShadow
             , marker;
             
-            if (node.yes > node.no) {
-              pinColor = "4B9646";
-            } else if (node.no > node.yes) {
-              pinColor = "964B46";
-            } else {
-              pinColor = "262626";
-            }
+          if (node.yes > node.no) {
+            pinColor = "4B9646";
+          } else if (node.no > node.yes) {
+            pinColor = "964B46";
+          } else {
+            pinColor = "262626";
+          }
             
-            pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" +   pinColor,
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0,0),
-        new google.maps.Point(10, 34));
-            pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
-        new google.maps.Size(40, 37),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(12, 35));
+          pinImage = new google.maps.MarkerImage(
+            "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" +   pinColor,
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0,0),
+            new google.maps.Point(10, 34));
+          pinShadow = new google.maps.MarkerImage(
+            "http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+            new google.maps.Size(40, 37),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(12, 35));
             
-            marker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                title: 'Yes: ' + node.yes + ', No: ' + node.no,
-                icon: pinImage,
-                shadow: pinShadow
-              }); 
+          marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+              title: 'Yes: ' + node.yes + ', No: ' + node.no,
+              icon: pinImage,
+              shadow: pinShadow
+            }); 
           
           mrks.push(marker);
           hmDat.push({
-            location: latLng, weight: node.yes + node.no
-          });
+              location: latLng, weight: node.yes + node.no
+            });
           bnds.extend(latLng);
         }
+        
         map.fitBounds(bnds);
         hm = new google.maps.visualization.HeatmapLayer({data: hmDat, radius: 100});
         hm.setMap(map);

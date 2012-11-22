@@ -1,24 +1,27 @@
 extends ../glayout
 
 block head
-  if typeof answers !== 'undefined' && answers != ''
-    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization')
-    script(src='/js/gmap.js')
+  script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization')
+  script(src='/js/gmap.js')
   
 block content
   article.result
     #map
-    header
-      h1(data-question-id=question.id)= question.value
     footer
-      if typeof answers !== 'undefined' && answers != ''
-        ul(class="answer_graph")
-          if yesWidth !== 0
-            li(style="width:" + yesWidth + "%;", class="answers yes")
-              h2= 'Yes (' + yesWidth + ')'
-          if noWidth !== 0
-            li(style="width:" + noWidth + "%;", class="answers no")
-              h2= 'No (' + noWidth + ')'      
-      else 
-        p.alert.alert-block 
-          = 'No votes have been collected'
+      .container
+        .row-fluid
+          .span6
+            h1(data-question-id=question.id)= question.value
+          .span6
+            ul.unstyled
+              if typeof answers !== 'undefined' && answers != ''
+                li
+                  strong= 'Yes: '+yesWidth+'% / No: '+noWidth+'%'
+                if answers.length == 1
+                  li= answers.length + ' person answered this question'
+                else
+                  li= answers.length + ' people answered this question'
+              else
+                li 
+                  strong= 'No votes have been collected'
+                li= 'Check back soon'
