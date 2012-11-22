@@ -7,7 +7,7 @@ block content
       div(class="span12")
         h1= "Recently asked questions"
 
-        ul
+        ul.nav.nav-tabs.nav-stacked
           each question in questions
             li
               a(href="/questions/#{question.id}")
