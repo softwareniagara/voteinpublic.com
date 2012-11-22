@@ -55,6 +55,7 @@ function ginit() {
         }
         
         map.fitBounds(bnds);
+        map.setZoom(map.getZoom()-1)
         hm = new google.maps.visualization.HeatmapLayer({data: hmDat, radius: 100});
         hm.setMap(map);
       }
