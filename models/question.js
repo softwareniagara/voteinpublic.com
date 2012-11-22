@@ -10,6 +10,10 @@ Question = new mongoose.Schema({
   possibleAnswers: {
     type: Array,
     default: ['no','yes']
+  },
+  numAnswers: {
+    type: Number,
+    default: 0
   }
 });
 
