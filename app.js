@@ -64,27 +64,40 @@ app.configure('development', function(){
 });
 
 // Routes
-app.get('/', routes.index);
-app.get('/questions/:id/:answer', question.addGeolocationToAnswer);
-app.post('/questions/:id/:answer', question.answer);
-app.get('/questions:format?', question.index);
-app.get('/questions/:id.:format?', question.show);
-app.post('/questions', question.create);
-app.get('/results:format?', question.index);
-app.get('/results/:id/clustered.:format?', result.clustered);
-app.get('/results/:id.:format?', result.show);
+
+// Homepage
+app.get('/', routes.index);                                             // Ask a question
+
+// Questions
+app.get('/questions/:id/:answer', question.addGeolocationToAnswer);     // Get user location
+app.post('/questions/:id/:answer', question.answer);                    // Answer a question
+app.get('/questions:format?', question.index);                          // See all questions
+app.get('/questions/:id.:format?', question.show);                      // See a question
+app.post('/questions', question.create);                                // Create a question
+
+// Results
+app.get('/results:format?', question.index);                            // See all questions
+app.get('/results/:id/clustered.:format?', result.clustered);           // See results for question clustered by location
+app.get('/results/:id.:format?', result.show);                          // See results for question
+
+// Standard error pages
+app.get('/404', error.get404);                                          // Content not found
+app.get('/500', error.get500);                                          // Application error
+
+// Application error pages
+app.get('/no_location', error.no_location);                             // No location sent
+app.get('/failed_location', error.failed_location);                     // Failed to retrieve location
+app.get('/already_voted', error.already_voted);                         // Cannot vote more than once
+app.get('/vote_failed', error.vote_failed);                             // Failed to vote
+
+// Routes that should maybe be removed:
 app.get('/map', map.show);
 app.get('/config/kml/list', config.getKMLFiles);
 app.get('/poster/create/:id', question.create_poster);
 app.get('/config/kml/list', config.kml);
 app.get('/config/:id', config.get);
-app.get('/404', error.get404);
-app.get('/500', error.get500);
-app.get('/no_location', error.no_location);
-app.get('/failed_location', error.failed_location);
-app.get('/already_voted', error.already_voted);
-app.get('/vote_failed', error.vote_failed);
 
+// Start the server
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
