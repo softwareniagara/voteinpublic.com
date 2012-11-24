@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , question = require('./routes/question')
+  , poster = require('./routes/poster')
   , result = require('./routes/result')
   , error = require('./routes/error')
   , config = require('./routes/config')
@@ -75,6 +76,9 @@ app.get('/questions:format?', question.index);                          // See a
 app.get('/questions/:id.:format?', question.show);                      // See a question
 app.post('/questions', question.create);                                // Create a question
 
+// Posters
+app.post('/poster/:id', poster.create);                                 // Create a poster for a question.
+
 // Results
 app.get('/results:format?', question.index);                            // See all questions
 app.get('/results/:id/clustered.:format?', result.clustered);           // See results for question clustered by location
@@ -93,7 +97,6 @@ app.get('/vote_failed', error.vote_failed);                             // Faile
 // Routes that should maybe be removed:
 app.get('/map', map.show);
 app.get('/config/kml/list', config.getKMLFiles);
-app.get('/poster/create/:id', question.create_poster);
 app.get('/config/kml/list', config.kml);
 app.get('/config/:id', config.get);
 
