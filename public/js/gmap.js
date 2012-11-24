@@ -9,7 +9,8 @@ function ginit() {
       , mrks = []
       , hmDat = []
       , bnds = new google.maps.LatLngBounds()
-      , hm;
+      , hm
+      , geocoder = new google.maps.Geocoder();
     $.ajax('/results/'+qid+'/clustered', {
       success: function(data) {
         for (var i = 0, max = data.length; i < max; i++) {
@@ -44,7 +45,9 @@ function ginit() {
               map: map,
               title: 'Yes: ' + node.yes + ', No: ' + node.no,
               icon: pinImage,
-              shadow: pinShadow
+              shadow: pinShadow,
+              yesVotes: node.yes,
+              noVotes: node.no
             }); 
           
           mrks.push(marker);
@@ -52,14 +55,49 @@ function ginit() {
               location: latLng, weight: node.yes + node.no
             });
           bnds.extend(latLng);
+
+          // map marker click event
+          google.maps.event.addListener(marker, 'click', function() {
+            item = this;
+            var location = ''
+              , answerCount = this.yesVotes + this.noVotes
+              , yesWidth = roundNumber(this.yesVotes / answerCount * 100, 2)
+              , noWidth = roundNumber(this.noVotes / answerCount * 100, 2)
+              , html = ''; 
+            geocoder.geocode({'latLng': this.getPosition()}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                  location = results[1].address_components[0].short_name + ', ' + results[1].address_components[2].short_name;
+                }
+              }
+
+              /*
+              * If we do not want a to get geocoding location take the below code and remove location references.
+              * Delete the geocode references above as well.
+              */
+              if (location) {
+                html += location + '<br>';
+              }
+              html += '<strong>Yes:</strong> ' + yesWidth + '% / <strong>No:</strong> ' + noWidth + '%';
+              var statusBar = $('#status-bar');
+              statusBar.html(html);
+              statusBar.show(); 
+            });
+          });
         }
         
         map.fitBounds(bnds);
         map.setZoom(map.getZoom()-1)
-        hm = new google.maps.visualization.HeatmapLayer({data: hmDat, radius: 100});
+        hm = new google.maps.visualization.HeatmapLayer({data: hmDat, radius: 50});
         hm.setMap(map);
       }
     });
+
   })(jQuery);
 }
 window.onload = ginit;
+
+function roundNumber(num, dec) {
+  var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+  return result;
+}
