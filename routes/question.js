@@ -108,44 +108,23 @@ exports.show = function(req, res) {
  * 4) On success when create via html, it should do what it does now.
  */
 exports.create = function(req, res) {
-  var questionValue = req.body.question.trim();
-
-  /*
-   * Validations Hacks
-   * this is no means the best practice. All validations should go into the model
-   * this code should be refractored at some point.
-   * - Michael (Nov 11, 2012)
-  */
-    if (questionValue == '') {
-      req.session.error = 'You must ask a question!';
-      res.redirect('/');
-      return false;
-    }
-
-    // Minimum Length should be 140 characters
-    if (questionValue.length > 140) {
-      req.session.error = 'Your question must be less than 140 characters! Please revise.';
-      res.redirect('/');
-      return false;  
-    }
-
-    //
-  /*
-  * End of Validation Hacks
-  */
-
-  var question = new Question({
-    value: questionValue
-  });
+  var questionValue = req.body.question.trim()
+    , question = new Question({value: questionValue});
 
   return question.save(function(err, question) {
-    if (err || !question) {
-      res.redirect('/404');
-      return false;
-    }
+     if (err) {
+       console.log(err);
+       // WTF this is ugly!
+       if (err.errors && err.errors.value && err.errors.value.type) {
+         err = err.errors.value.type;
+       } else {
+         err = 'Oops. Your question could not be asked. Please try again.';
+       }
+       req.session.error = err;
+       return res.redirect('/');
+     }
 
-    // redirect to show route after create question
-    res.redirect('/questions/' + question.id);
+     return res.redirect('/questions/'+question.id);
   });
 };
 
