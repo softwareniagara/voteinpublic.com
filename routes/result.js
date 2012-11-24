@@ -2,17 +2,6 @@ var Question = require('./../models/question.js');
 var Answer = require('./../models/answer.js');
 
 /*
- * GET /results
- */
-
-exports.index = function(req, res){
-  // get latest trends
-  res.render("./../views/results/index", {
-    title: 'Trends'
-  });
-};
-
-/*
  * GET /results/:id.:format?
  */
 
@@ -179,13 +168,13 @@ exports.clustered = function(req, res) {
 
 var filterYes = function(answer) {
   return answer.value == 'yes';
-}
+};
 
 var filterNo = function(answer) {
   return answer.value == 'no';
-}
+};
 
 function roundNumber(num, dec) {
 	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
 	return result;
-}
+};
