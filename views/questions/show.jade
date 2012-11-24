@@ -1,23 +1,21 @@
 extends ../layout
 
 block content
-
-  div(class="container")
-    div(class="row-fluid")
-      div(class="span12")
-        h1= question.value
-
-        p
-          = "So you've made a question. It's now time to create your poster!"
-
-        p 
-          = "Print your poster and put it up in places where you want to get local data about your question."
-
+  .container
+    .page-header
+      .row-fluid
+        .span12
+          h1= question.value
+    .row-fluid
+      .span8
+        p= "So you've asked a question. Now what?"
+        ol
+          li= "Click the 'Create Poster' button to generate a poster. It will create a PDF that you can save."
+          li= "Print copies of your poster and place them around town. Remember to only post them where permitted."
+          li= "Come back here and click the 'View Results' button to see how people answered your question."
         p
           a(href="/poster/create/#{question.id}", class="btn btn-large btn-primary")
             = "Create Poster"
-
-          = " "
-
-          a(href="/results/#{question.id}", class="btn btn-large btn-warning")
+          = "&nbsp;"
+          a(href="/results/#{question.id}", class="btn btn-large")
             = "View Results"
