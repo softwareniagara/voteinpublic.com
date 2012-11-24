@@ -2,13 +2,22 @@ extends ../layout
 
 block content
 
-  div(class="container")
-    div(class="row-fluid")
-      div(class="span12")
-        h1= "Recently asked questions"
-
+  .container
+    .page-header
+      .row-fluid
+        .span8
+          h1= "Trending Answers"
+        .span4
+          a(href="/", class="btn")= "Ask your own question"
+    .row-fluid
+      .span12
         ul.nav.nav-tabs.nav-stacked
           each question in questions
             li
-              a(href="/questions/#{question.id}")
-                = question.value
+              a(href="/results/#{question.id}")
+                .row-fluid
+                  .span8
+                    = question.value
+                  .span4
+                    = question.numAnswers
+                    = (question.numAnswers == 1) ? " vote" : " votes"
