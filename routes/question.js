@@ -1,13 +1,24 @@
-var Question = require('./../models/question.js')
-  , Answer = require('./../models/answer.js')
-  , exec = require('child_process').exec
-  , qrcode = require('qrcode')
+/*
+ * question.js
+ *
+ * This router is responsible for CRUD operations on question models and
+ * dealing with views for those CRUD operations.
+ *
+ * This router uses content negotiation and can serve views in html or json.
+ */
+
+var Question    = require('./../models/question.js')
+  , Answer      = require('./../models/answer.js')
+  , exec        = require('child_process').exec
+  , qrcode      = require('qrcode')
   , PDFDocument = require('pdfkit')
-  , fs = require('fs')
-  , Cookies = require('cookies');
+  , fs          = require('fs')
+  , Cookies     = require('cookies');
 
 /*
  * GET /questions
+ *
+ * This route returns of a list of questions in html or json.
  */
 exports.index = function(req, res) {
   var callback;
@@ -45,6 +56,8 @@ exports.index = function(req, res) {
 
 /*
  * GET /questions/:id
+ *
+ * This route returns a question in html or json.
  */
 
 exports.show = function(req, res) {
@@ -86,7 +99,7 @@ exports.show = function(req, res) {
 /*
  * POST /question
  *
- * We need to do some content negotation here too. But I'm very tired right now. 
+ * We need to do some content negotiation here too. But I'm very tired right now.
  * I'll implement this tomorrow. 
  *
  * 1) On failure when create via json, it should return 422 code
@@ -114,12 +127,6 @@ exports.create = function(req, res) {
       req.session.error = 'Your question must be less than 140 characters! Please revise.';
       res.redirect('/');
       return false;  
-    }
-
-    // Add a question mark if there isn't one present as the last character
-    // should go into an after save filter inside the model
-    if (questionValue.slice(-1) !== '?') {
-      questionValue += '?';
     }
 
     //

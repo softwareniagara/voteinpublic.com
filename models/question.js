@@ -1,6 +1,7 @@
-var mongoose = require('mongoose')
-  , Schema   = mongoose.Schema
-  , timestamps = require('./../lib/plugins/timestamps.js')
+var mongoose     = require('mongoose')
+  , Schema       = mongoose.Schema
+  , timestamps   = require('./../lib/plugins/timestamps.js')
+  , questionizer = require('./../lib/plugins/questionizer.js')
   , Question;
   
 Question = new mongoose.Schema({
@@ -18,5 +19,6 @@ Question = new mongoose.Schema({
 });
 
 Question.plugin(timestamps);
+Question.plugin(questionizer, {properties: ['value']});
 
 module.exports = mongoose.model('Question', Question);
