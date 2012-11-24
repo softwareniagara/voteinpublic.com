@@ -11,6 +11,7 @@ body{background:#fff;padding:80px 25px 20px 25px}
 .navbar.navbar-inverse .nav-collapse .nav li.active a{background-color:#204a90;}
 .navbar.navbar-inverse .nav-collapse .nav li.active a:hover{background-color:#204a90}
 .navbar.navbar-inverse .btn-navbar{background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #204a90), color-stop(1, #1d4281));background:-webkit-linear-gradient(top, #204a90 0%, #1d4281 100%);background:-moz-linear-gradient(top, #204a90 0%, #1d4281 100%);background:-o-linear-gradient(top, #204a90 0%, #1d4281 100%);background:-ms-linear-gradient(top, #204a90 0%, #1d4281 100%);background:linear-gradient(top, #204a90 0%, #1d4281 100%)}
+.nav.nav-tabs.nav-stacked [class*='span']{min-height:0}
 @media (min-width: 980px){.navbar.navbar-inverse .brand{padding-top:20px;padding-bottom:20px}
 .navbar.navbar-inverse .nav-collapse .nav > li > a{padding-top:20px;padding-bottom:20px}
 }.alert{-webkit-border-radius:0;border-radius:0;margin-bottom:0;}
@@ -27,12 +28,4 @@ body.glayout article.result #map{position:absolute;top:60px;left:0;right:0;botto
 body.glayout article.result footer{position:absolute;left:0;right:0;bottom:0;height:auto;width:auto;background:rgba(0,0,0,0.85);padding:20px 15px;}
 body.glayout article.result footer h1{font-size:18px;color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.5);margin:0 0}
 body.glayout article.result footer li{color:#fff;text-shadow:0 -1px 0 rgba(0,0,0,0.5);text-align:right}
-.overlay{display:none;font-size:10pt}
-.ol-overlaycontainer .overlay{display:block}
-#vienna{text-decoration:none;color:#fff;font-size:11pt;font-weight:bold;text-shadow:#000 .1em .1em .2em}
-#popup{width:200px;margin-left:-107px;margin-bottom:12px;-webkit-border-radius:5px;border-radius:5px;padding:5px}
-.arrow_box{position:relative;background:#88b7d5;border:2px solid #c2e1f5}
-.arrow_box:after,.arrow_box:before{top:100%;border:solid transparent;content:" ";height:0;width:0;position:absolute;pointer-events:none}
-.arrow_box:after{border-color:rgba(136,183,213,0);border-top-color:#88b7d5;border-width:10px;left:50%;margin-left:-10px}
-.arrow_box:before{border-color:rgba(194,225,245,0);border-top-color:#c2e1f5;border-width:13px;left:50%;margin-left:-13px}
 #status-bar{margin-top:-60px;margin-bottom:10px;background-color:#e8e8e8;background:rgba(232,232,232,0.8);height:40px;display:none;text-align:center}
