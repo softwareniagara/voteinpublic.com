@@ -1,10 +1,20 @@
-var Question = require('./../models/question.js');
-var Answer = require('./../models/answer.js');
+/*
+ * result.js
+ *
+ * This router is responsible for retrieving answer models, processing them,
+ * and providing them to views.
+ *
+ * This router uses content negotiation and can serve views in html or json.
+ */
+
+var Question = require('./../models/question.js')
+  , Answer   = require('./../models/answer.js');
 
 /*
  * GET /results/:id.:format?
+ *
+ * The route returns a list of answers to a question in html or json.
  */
-
 exports.show = function(req, res) {
   var callback;
   
@@ -38,7 +48,7 @@ exports.show = function(req, res) {
             question: question,
             answers: answers,
             yesWidth: yesWidth,
-            noWidth: noWidth,
+            noWidth: noWidth
           });
         }
       }
@@ -61,84 +71,10 @@ exports.show = function(req, res) {
 
 /*
  * GET /results/clustered.:format?
+ *
+ * This route returns a list of answers to a question, clustered by location,
+ * in html or json.
  */
-
-var getClusteredAnswers = function(answer, question_id, answers, results, callback) {
-  if (!answer) return callback(null, results);
-  
-  var result = {
-    yes: 0,
-    no: 0,
-    coordinates: null,
-    includedCoordinates: []
-  };
-  
-  result.coordinates = answer.coordinates;
-  result.includedCoordinates.push(answer.coordinates);
-  if (answer.value == 'yes') result.yes = result.yes + 1;
-  if (answer.value == 'no') result.no = result.no + 1;
-  answers.push(answer.id);
-
-  return Answer.find({
-    question_id: question_id,
-    _id: {$nin: answers},
-    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.00009}
-  }, function(err, r) {
-    if (err) {
-      // Find another random answer.
-      return Answer.findOne({
-        question_id: question_id,
-        _id: {$nin: answers}
-      }, function(err, answer) {
-        if (err) return callback(err, null);
-        return getClusteredAnswers(answer, question_id, answers, results, callback);
-      });
-    }
-    
-    if (r && r.length > 0) {
-      for (var i = 0, max = r.length; i < max; i++) {
-        var insertNew = true
-          , r1 = r[i];
-          
-        for (var j = 0, jMax = answers.length; j < jMax; j++) {
-          if (answers[j] == r1.id) {
-            insertNew = false;
-            break;
-          }
-        }
-        
-        if (insertNew) {
-          result.coordinates = r1.coordinates;
-          result.includedCoordinates.push(r1.coordinates);
-          if (r1.value == 'yes') result.yes = result.yes + 1;
-          if (r1.value == 'no') result.no = result.no + 1;
-          answers.push(r1.id);
-        }
-      }
-      
-      results.push(result);
-      
-      return Answer.findOne({
-        question_id: question_id,
-        _id: {$nin: answers}
-      }, function(err, answer) {
-        if (err) return callback(err, null);
-        return getClusteredAnswers(answer, question_id, answers, results, callback);
-      });
-    } else {
-      results.push(result);
-      // Find another random answer.
-      return Answer.findOne({
-        question_id: question_id,
-        _id: {$nin: answers}
-      }, function(err, answer) {
-        if (err) return callback(err, null);
-        return getClusteredAnswers(answer, question_id, answers, results, callback);
-      });
-    }
-  });
-};
-
 exports.clustered = function(req, res) {
   return Answer.findOne({
     question_id: req.params.id
@@ -165,6 +101,86 @@ exports.clustered = function(req, res) {
     }
   });
 }
+
+/*
+ * Helper/library functions.
+ */
+
+var getClusteredAnswers = function(answer, question_id, answers, results, callback) {
+  if (!answer) return callback(null, results);
+
+  var result = {
+    yes: 0,
+    no: 0,
+    coordinates: null,
+    includedCoordinates: []
+  };
+
+  result.coordinates = answer.coordinates;
+  result.includedCoordinates.push(answer.coordinates);
+  if (answer.value == 'yes') result.yes = result.yes + 1;
+  if (answer.value == 'no') result.no = result.no + 1;
+  answers.push(answer.id);
+
+  return Answer.find({
+    question_id: question_id,
+    _id: {$nin: answers},
+    coordinates: { $nearSphere: answer.coordinates, $maxDistance: 0.00009}
+  }, function(err, r) {
+    if (err) {
+      // Find another random answer.
+      return Answer.findOne({
+        question_id: question_id,
+        _id: {$nin: answers}
+      }, function(err, answer) {
+        if (err) return callback(err, null);
+        return getClusteredAnswers(answer, question_id, answers, results, callback);
+      });
+    }
+
+    if (r && r.length > 0) {
+      for (var i = 0, max = r.length; i < max; i++) {
+        var insertNew = true
+          , r1 = r[i];
+
+        for (var j = 0, jMax = answers.length; j < jMax; j++) {
+          if (answers[j] == r1.id) {
+            insertNew = false;
+            break;
+          }
+        }
+
+        if (insertNew) {
+          result.coordinates = r1.coordinates;
+          result.includedCoordinates.push(r1.coordinates);
+          if (r1.value == 'yes') result.yes = result.yes + 1;
+          if (r1.value == 'no') result.no = result.no + 1;
+          answers.push(r1.id);
+        }
+      }
+
+      results.push(result);
+
+      return Answer.findOne({
+        question_id: question_id,
+        _id: {$nin: answers}
+      }, function(err, answer) {
+        if (err) return callback(err, null);
+        return getClusteredAnswers(answer, question_id, answers, results, callback);
+      });
+    } else {
+      results.push(result);
+      // Find another random answer.
+      return Answer.findOne({
+        question_id: question_id,
+        _id: {$nin: answers}
+      }, function(err, answer) {
+        if (err) return callback(err, null);
+        return getClusteredAnswers(answer, question_id, answers, results, callback);
+      });
+    }
+  });
+};
 
 var filterYes = function(answer) {
   return answer.value == 'yes';
