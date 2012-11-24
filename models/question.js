@@ -19,11 +19,11 @@ Question = new mongoose.Schema({
 });
 
 Question.path('value').validate(function(v) {
-   return v.length > 140;
+   return v.length <= 140;
 }, 'Your question must be less than 140 characters. Please revise.');
 
 Question.path('value').validate(function(v) {
-   return !v || v.length == 0;
+   return v && v.length > 0;
 }, 'You must ask a question.');
 
 Question.plugin(timestamps);

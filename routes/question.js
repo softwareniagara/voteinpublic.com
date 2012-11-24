@@ -109,23 +109,42 @@ exports.show = function(req, res) {
  */
 exports.create = function(req, res) {
   var questionValue = req.body.question.trim()
-    , question = new Question({value: questionValue});
+    , question = new Question({value: questionValue})
+    , callback;
 
-  return question.save(function(err, question) {
-     if (err) {
-       console.log(err);
-       // WTF this is ugly!
-       if (err.errors && err.errors.value && err.errors.value.type) {
-         err = err.errors.value.type;
-       } else {
-         err = 'Oops. Your question could not be asked. Please try again.';
-       }
-       req.session.error = err;
-       return res.redirect('/');
-     }
+  console.log(question);
 
-     return res.redirect('/questions/'+question.id);
-  });
+  switch (req.params.format) {
+    case 'json':
+      callback = function(err, question) {
+        if (err) {
+          res.statusCode = '422';
+          res.setHeader('Content-Type', 'application/json');
+          return res.send(err);
+        }
+        res.statusCode = '200';
+        res.setHeader('Content-Type', 'application/json');
+        return res.send(question);
+      };
+      break;
+    default:
+      callback = function(err, question) {
+        if (err) {
+          // WTF this is ugly.
+          if (err.errors && err.errors.value && err.errors.value.type) {
+            err = err.errors.value.type;
+          } else {
+            err = 'Oops. Your question could not be asked. Please try again.';
+          }
+          req.session.error = err;
+          return res.redirect('/');
+        }
+
+        return res.redirect('/questions/'+question.id);
+      };
+  }
+
+  return question.save(callback);
 };
 
 /*
