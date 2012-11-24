@@ -46,8 +46,8 @@ exports.index = function(req, res) {
         });
       };
   }
-  
-  return Question.find(callback);
+
+  return Question.find({}).sort({'numAnswers': -1, createdAt: -1}).execFind(callback);
 };
 
 /*
