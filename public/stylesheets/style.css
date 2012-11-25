@@ -18,7 +18,8 @@ body{background:#fff;padding:80px 25px 20px 25px}
 .alert .span12{min-height:20px}
 article.question{padding:90px 0;}
 article.question header h1,article.question header h2,article.question header h3,article.question header h4,article.question header h5,article.question header h6{font-family:'Crete Round',serif;font-size:5em;text-align:center;text-shadow:0 1px 0 rgba(255,255,255,0.5);margin-bottom:30px}
-article.question form input,article.question form button{font-size:2em;padding-top:1em;padding-bottom:1em;line-height:1em;height:1em}
+article.question form input,article.question form button{font-size:2em;line-height:1em}
+article.question form input{height:auto;padding:.5em}
 article.question form button{width:100%;padding:.5em 0;vertical-align:top;height:auto}
 @media (max-width: 767px){article.question{margin:0 -20px;padding:20px;}
 article.question header h1,article.question header h2,article.question header h3,article.question header h4,article.question header h5,article.question header h6{font-size:3em}
