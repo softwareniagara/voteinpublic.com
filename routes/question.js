@@ -41,7 +41,7 @@ exports.index = function(req, res) {
         }
 
         return res.render("./../views/questions/index", {
-          title: 'Questions',
+          title: 'Trending Answers | Vote in Public',
           questions: questions
         });
       };

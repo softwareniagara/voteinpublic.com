@@ -44,7 +44,7 @@ exports.show = function(req, res) {
           yesWidth = roundNumber(countYes / answers.length * 100, 2);
           noWidth = roundNumber(countNo / answers.length * 100, 2); 
           return res.render("./../views/results/gshow", {
-            title: 'Results',
+            title: 'Results | Vote in Public',
             question: question,
             answers: answers,
             yesWidth: yesWidth,

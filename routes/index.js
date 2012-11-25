@@ -6,5 +6,5 @@
 exports.index = function(req, res) {
   error_msg = req.session.error;
   req.session.error = '';
-  res.render('index', { title: 'Poll App!', error: error_msg });
+  res.render('index', { title: 'Ask a Question | Vote in Public', error: error_msg });
 };
