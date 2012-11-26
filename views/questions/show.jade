@@ -10,9 +10,13 @@ block content
       .span8
         p= "So you've asked a question. Now what?"
         ol
+          li
+            = "Save this link to get back to this page later: "
+            a(href="http://voteinpublic.com/questions/#{question.id}")
+              | http://voteinpublic.com/questions/#{question.id}
           li= "Click the 'Create Poster' button to generate a poster. It will create a PDF that you can save."
           li= "Print copies of your poster and place them around town. Remember to only post them where permitted."
-          li= "Come back here and click the 'View Results' button to see how people answered your question."
+          li= "Click the 'View Results' button to see how people answered your question."
         form(action='/poster/#{question.id}', method='post')
           .form-actions
             button(class='btn btn-large btn-primary')
