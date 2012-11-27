@@ -26,7 +26,7 @@ function ginit() {
           } else if (node.no > node.yes) {
             pinColor = "964B46";
           } else {
-            pinColor = "262626";
+            pinColor = "999999";
           }
             
           pinImage = new google.maps.MarkerImage(
@@ -88,7 +88,11 @@ function ginit() {
         
         map.fitBounds(bnds);
         map.setZoom(map.getZoom()-1)
-        hm = new google.maps.visualization.HeatmapLayer({data: hmDat, radius: 50});
+        hm = new google.maps.visualization.HeatmapLayer({
+            data: hmDat, 
+            radius: 50,
+            gradient: ["rgba(0, 255, 255, 0)", "rgba(0, 255, 255, 1)", "rgba(0, 191, 255, 1)", "rgba(0, 127, 255, 1)", "rgba(0, 63, 255, 1)", "rgba(0, 0, 255, 1)", "rgba(0, 0, 223, 1)", "rgba(0, 0, 191, 1)", "rgba(0, 0, 159, 1)", "rgba(0, 0, 127, 1)", "rgba(63, 0, 91, 1)", "rgba(127, 0, 63, 1)", "rgba(191, 0, 31, 1)", "rgba(255, 0, 255, 1)"]
+          });
         hm.setMap(map);
       }
     });
