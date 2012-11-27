@@ -23,10 +23,7 @@ html
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
         .container
-          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
+          a.btn.btn-navbar(href='javascript: history.go(-1);', data-toggle='collapse', data-target='.nav-collapse') Back
           a.brand(href='/') 
             = "Vote In Public"
           .nav-collapse.collapse

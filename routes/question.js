@@ -41,7 +41,7 @@ exports.index = function(req, res) {
         }
 
         return res.render("./../views/questions/index", {
-          title: 'Questions',
+          title: 'Trending Answers | Vote in Public',
           questions: questions
         });
       };
@@ -176,6 +176,9 @@ exports.answer = function(req, res) {
     _id: req.params.id
   }, function(err, question) {
     // If the user has a cookie for this question, they cannot vote.
+
+    /* Commented out to disable multi vote prevention
+    * 
     if (cookies.get(baseName + question.id)) {
       res.statusCode = '403';
       res.setHeader('Content-Type', 'application/json');
@@ -183,6 +186,7 @@ exports.answer = function(req, res) {
         'error': 'You have already cast your vote. You are not permitted to vote again.'
       });
     }
+    */
   
     var answer = new Answer({
       value: selectedAnswer,
