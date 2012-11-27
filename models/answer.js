@@ -19,8 +19,9 @@ Answer.pre('save', function(next) {
   if (typeof this.question_id !== 'undefined' && typeof this.modified_at === 'undefined') {
     Question.findOne({_id: this.question_id}, function(err, question) {
       question.numAnswers = question.numAnswers + 1;
-      question.save(function(err) {
+      question.save(function(err, question) {
         // who cares what happens. Let's assume it worked.
+        console.log(question.numAnswers);
       });
     });
   }
