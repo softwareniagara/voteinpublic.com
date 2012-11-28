@@ -15,15 +15,12 @@ Answer = new mongoose.Schema({
 });
 
 Answer.pre('save', function(next) {
-  // Needs to happen before it is timestamped so we know the answer is fresh.
-  if (typeof this.question_id !== 'undefined' && typeof this.modified_at === 'undefined') {
-    Question.findOne({_id: this.question_id}, function(err, question) {
-      question.numAnswers = question.numAnswers + 1;
-      question.save(function(err) {
-        // who cares what happens. Let's assume it worked.
-      });
+  Question.findOne({_id: this.question_id}, function(err, question) {
+    question.numAnswers = question.numAnswers + 1;
+    question.save(function(err, question) {
+      // who cares what happens. Let's assume it worked.
     });
-  }
+  });
   next();
 });
 
