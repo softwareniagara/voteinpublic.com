@@ -33,19 +33,8 @@ Answer.remove({}, function(err) {
     
     var question = new Question({
       value: 'Is it a trap?',
-      answers: [
-        {
-          value: 'yes'
-        },
-        {
-          value: 'no'
-        },
-        {
-          value: 'yes'
-        }
-      ]
+      numAnswers: 0
     });
-    
     question.save(function(err, question) {
       if (err) {
         console.log(err);
@@ -68,11 +57,20 @@ Answer.remove({}, function(err) {
             return answerQuestion(err, question, iteration + 1, maxIterations);
           });
         } else {
-          console.log('Saved a great question. Got some good answers.');
-          process.exit();
+         
+          
+          question.numAnswers = maxIterations;
+          
+          question.save(function(err, question){
+            console.log(question);
+            console.log('Saved a great question. Got some good answers.');
+            process.exit();
+          });
+
         }
       };
       answerQuestion(null, question, 0, 5);
     });
   });
+
 });
