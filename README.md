@@ -1,21 +1,20 @@
-poll-app
-========
+Vote in Public
+==============
 
-Poll-app is an app for creating and consuming geo-spatial polls. It was created during the
-[Software Niagara](http://www.softwareniagara.com) Secret Hackathon hosted by
-[Furi Enterprises](http://www.furi.ca) in November 2012.
+Vote in Public (code named _poll-app_) is an app for creating and consuming geo-spatial polls.  
+It was created during the [Software Niagara](http://www.softwareniagara.com) Secret Hackathon
+hosted by [Furi Enterprises](http://www.furi.ca) in November 2012.
 
 ## Description
 
-Poll-app is a web-based application that allows citizens, leaders, non-profits,
-charities, companies, and other organizations to ask questions from the public
-and get answers.
+Vote in Public is a web-based application that allows citizens, leaders, non-profits,
+charities, companies, and other organizations to ask questions from the public and get answers.
 
 Here's how it works:
 
 1. Ask a question using the web application.
 2. Print out the generated poster. It includes the question and answers.
-3. Place the poster in public and/or private spaces
+3. Place the poster in public and/or private spaces.
 4. Citizens come along and scan the answer they want with their phone.
 5. Their vote and current location is registered on the web application.
 6. A map is generated showing how people voted on the question.
@@ -35,8 +34,9 @@ Find whatever creative uses you can for this app. The source code is available f
 
 ## Technical Notes
 
-This web application uses Node.js and MongoDB. It also uses PDFKit for pdf generation and node-qrcode
-for qr code generation. You'll need a system capable of running these tools.
+This web application uses Node.js and MongoDB.
+It also uses PDFKit for PDF generation and node-qrcode for QR code generation.  
+You'll need a system capable of running these tools.
 
 Node-qrcode requires node-canvas to work, which has some dependencies.
 
@@ -56,7 +56,7 @@ brew install cairo && brew link cairo
 
 This software is licensed under the BSD 3-clause license:
 
-Copyright (c) 2012, Software Niagara
+Copyright (c) 2012  Software Niagara  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that
