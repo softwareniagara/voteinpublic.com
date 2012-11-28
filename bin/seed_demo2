@@ -8,11 +8,17 @@ var mongoose = require('mongoose')
 var data = {
       question: 'Is it a trap?'
     , answers: [
-        {value: 'yes', coordinates: [43.168515, -79.254748]},
-	{value: 'yes', coordinates: [43.168435, -79.254692]},
-	{value: 'no', coordinates: [43.168594, -79.254804]},
-	{value: 'no', coordinates: [43.155235, -79.245704]},
-	{value: 'yes', coordinates: [43.052581, -79.058984]}
+        {value: 'yes', coordinates: [43.087492, -79.148107]},
+        {value: 'yes', coordinates: [43.087766, -79.146668]},
+        {value: 'yes', coordinates: [43.087766, -79.146668]},
+        {value: 'no', coordinates: [43.087766, -79.146668]},
+        {value: 'no', coordinates: [43.087492, -79.148107]},
+        {value: 'yes', coordinates: [43.087492, -79.148107]},
+        {value: 'yes', coordinates: [43.087492, -79.148107]},
+        {value: 'yes', coordinates: [43.085987, -79.15094]},
+        {value: 'yes', coordinates: [43.085987, -79.15094]},
+        {value: 'yes', coordinates: [43.085987, -79.15094]},
+        {value: 'no', coordinates: [43.085987, -79.15094]}
     ] 
   };
 

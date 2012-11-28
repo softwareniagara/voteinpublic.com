@@ -1,0 +1,66 @@
+#!/usr/bin/env node
+
+var mongoose = require('mongoose')
+  , Question  = require('./../models/question.js')
+  , Answer    = require('./../models/answer.js');
+
+// Build your questions and answers
+var data = {
+      question: 'Is Sahla Thai the best place for Thai food?'
+    , answers: [
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'yes', coordinates: [43.158737,-79.242632]},
+        {value: 'no', coordinates: [43.087766, -79.146668]},
+        {value: 'no', coordinates: [43.161053,-79.246065]},
+        {value: 'no', coordinates: [43.161053,-79.246065]},
+        {value: 'no', coordinates: [43.161053,-79.246065]},
+        {value: 'no', coordinates: [43.160959,-79.245679]},
+        {value: 'no', coordinates: [43.160959,-79.245679]},
+        {value: 'yes', coordinates: [43.164371,-79.2394139]},
+        {value: 'yes', coordinates: [43.164371,-79.2394139]},
+        {value: 'yes', coordinates: [43.164371,-79.2394139]},
+        {value: 'no', coordinates: [43.164371,-79.2394139]},
+        {value: 'no', coordinates: [43.164371,-79.2394139]}
+    ] 
+  };
+
+//Start the process
+mongoose.connect('mongodb://localhost/pollapp');
+
+var expectedAnswers = data.answers.length;
+var numAnswers = 0;
+
+var question = new Question({
+  value: data.question,
+  numAnswers: expectedAnswers
+}); 
+
+question.save(function(err, question) {
+  if (err) {
+    console.log(err);
+    process.exit();
+  }
+  var responses = data.answers;
+  for (a in responses) {
+    var answer = new Answer({
+      question_id: question.id,
+      value: responses[a].value,
+      coordinates: responses[a].coordinates
+    }); 
+
+    answer.save(function(err) {
+	numAnswers += 1;
+	
+	if (numAnswers == expectedAnswers) {
+	  console.log('Saved a great question. Got some good answers.');
+	  process.exit();
+	}
+    });
+  }
+});
