@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+
+var mongoose = require('mongoose')
+  , Question  = require('./../models/question.js')
+  , Answer    = require('./../models/answer.js');
+
+// Build your questions and answers
+var data = {
+      question: 'Do you like the service at this bus stop'
+    , answers: [
+        {value: 'yes', coordinates: [43.157829, -79.244903]},
+        {value: 'yes', coordinates: [43.159973, -79.244903]},
+        {value: 'yes', coordinates: [43.157829, -79.249032]},
+        {value: 'yes', coordinates: [43.157829, -79.249032]},
+        {value: 'yes', coordinates: [43.157829, -79.249032]},
+        {value: 'yes', coordinates: [43.157829, -79.249032]},
+        {value: 'yes', coordinates: [43.157829, -79.249032]},
+        {value: 'no', coordinates: [43.157829, -79.249032]},
+        {value: 'no', coordinates: [43.157829, -79.249032]},
+        {value: 'no', coordinates: [43.157829, -79.249032]},
+        {value: 'yes', coordinates: [43.16254, -79.240054]},
+        {value: 'yes', coordinates: [43.16254, -79.240054]},
+        {value: 'no', coordinates: [43.16254, -79.240054]},
+        {value: 'no', coordinates: [43.16254, -79.240054]},
+        {value: 'no', coordinates: [43.171883, -79.233123]},
+        {value: 'no', coordinates: [43.171883, -79.233123]},
+        {value: 'no', coordinates: [43.171883, -79.233123]},
+        {value: 'no', coordinates: [43.188047,-79.22587]},
+        {value: 'no', coordinates: [43.188047,-79.22587]},
+        {value: 'yes', coordinates: [43.188047,-79.22587]},
+        {value: 'yes', coordinates: [43.188047,-79.22587]},
+        {value: 'yes', coordinates: [43.188047,-79.22587]},
+        {value: 'yes', coordinates: [43.188047,-79.22587]},
+        {value: 'yes', coordinates: [43.188047,-79.22587]},
+        {value: 'yes', coordinates: [43.184136,-79.241277]},
+        {value: 'yes', coordinates: [43.163354,-79.259022]},
+        {value: 'no', coordinates: [43.17107,-79.254087]},
+        {value: 'no', coordinates: [43.186514,-79.261833]},
+        {value: 'no', coordinates: [43.171696,-79.240805]},
+        {value: 'yes', coordinates: [43.171696,-79.240805]},
+        {value: 'no', coordinates: [43.171696,-79.240805]},
+        {value: 'yes', coordinates: [43.171696,-79.240805]}
+    ] 
+  };
+
+//Start the process
+mongoose.connect('mongodb://localhost/pollapp');
+
+// Remove all the questions and answers.
+Answer.remove({}, function(err) {
+  if (err) {
+    console.log('Cannot delete answers for some reason.');
+    process.exit();
+  }
+  
+  Question.remove({}, function(err) {
+    if (err) {
+      console.log('Cannot delete questions for some reason.');
+      process.exit();
+    }
+    
+    var expectedAnswers = data.answers.length;
+    var numAnswers = 0;
+    
+    var question = new Question({
+      value: data.question,
+      numAnswers: expectedAnswers
+    }); 
+
+    question.save(function(err, question) {
+      if (err) {
+	console.log(err);
+	process.exit();
+      }
+      var responses = data.answers;
+      for (a in responses) {
+	var answer = new Answer({
+	  question_id: question.id,
+	  value: responses[a].value,
+	  coordinates: responses[a].coordinates
+	}); 
+
+	answer.save(function(err) {
+	    numAnswers += 1;
+	    
+	    if (numAnswers == expectedAnswers) {
+	      console.log('Saved a great question. Got some good answers.');
+	      process.exit();
+	    }
+	});
+      }
+    });
+
+  });
+});
