@@ -61,6 +61,8 @@ function ginit() {
             item = this;
             var location = ''
               , answerCount = this.yesVotes + this.noVotes
+              , yesVotes = this.yesVotes
+              , noVotes = this.noVotes
               , yesWidth = roundNumber(this.yesVotes / answerCount * 100, 2)
               , noWidth = roundNumber(this.noVotes / answerCount * 100, 2)
               , html = ''; 
@@ -78,7 +80,7 @@ function ginit() {
               if (location) {
                 html += location + '<br>';
               }
-              html += '<strong>Yes:</strong> ' + yesWidth + '% / <strong>No:</strong> ' + noWidth + '%';
+              html += '<strong>Yes:</strong> ' + yesVotes + ' (' + yesWidth + '%) ' + '  -  <strong>No:</strong> ' + noVotes + ' (' + noWidth + '%) ';
               var statusBar = $('#status-bar');
               statusBar.html(html);
               statusBar.show(); 
