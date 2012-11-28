@@ -16,8 +16,5 @@ block content
             li
               a(href="/results/#{question.id}")
                 .row-fluid
-                  .span8
+                  .span12
                     = question.value
-                  .span4
-                    = question.numAnswers
-                    = (question.numAnswers == 1) ? " vote" : " votes"
