@@ -10,9 +10,9 @@ block content
             h1(data-fit-text="1.4")= "What do you want to ask?"
       .row-fluid
         form(name="question", action="/questions", method="post", id="question_ask")
-          .span8
+          .span10
             input(type="text", name="question", class="span12", maxlength="140")
-          .span4
+          .span2
             button(class="btn btn-primary")
               = "Ask it!"
       .row-fluid
