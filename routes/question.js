@@ -42,7 +42,8 @@ exports.index = function(req, res) {
 
         return res.render("./../views/questions/index", {
           title: 'Trending Answers | Vote in Public',
-          questions: questions
+          questions: questions,
+          nav: 'results'
         });
       };
   }
@@ -84,7 +85,8 @@ exports.show = function(req, res) {
 
         return res.render("./../views/questions/show", {
           title: question.value,
-          question: question
+          question: question,
+          nav: 'results'
         });
       };
   }
@@ -155,7 +157,8 @@ exports.create = function(req, res) {
   return res.render("./../views/questions/location", {
     title: 'Verifying location',
     answer: answer,
-    question_id: question_id
+    question_id: question_id,
+    nav: 'results'
   });
  };
 

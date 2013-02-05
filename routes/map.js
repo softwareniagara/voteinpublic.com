@@ -4,5 +4,5 @@
  */
 
 exports.show = function(req, res){
-  res.render('map/show', { title: 'Poll App!' });
+  res.render('map/show', { title: 'Poll App!', nav: 'home' });
 };

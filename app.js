@@ -10,6 +10,7 @@ var express = require('express')
   , result = require('./routes/result')
   , error = require('./routes/error')
   , config = require('./routes/config')
+  , about = require('./routes/about')
   , map = require('./routes/map')
   , http = require('http')
   , path = require('path')
@@ -99,6 +100,8 @@ app.get('/map', map.show);
 app.get('/config/kml/list', config.getKMLFiles);
 app.get('/config/kml/list', config.kml);
 app.get('/config/:id', config.get);
+
+app.get('/about', about.index);
 
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){

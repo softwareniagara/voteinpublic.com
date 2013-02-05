@@ -31,9 +31,11 @@ html
             = "Vote In Public"
           .nav-collapse.collapse
             ul.nav.pull-right
-              li.active
+              li(class=(nav==='home' ? 'active' : ''))
                 a(href='/') Home
-              li
+              li(class=(nav==='about' ? 'active' : ''))
+                a(href='/about') About
+              li(class=(nav==='results' ? 'active' : ''))
                 a(href='/results') Trending Answers 
 
     include shared/notices
